@@ -1,7 +1,7 @@
 // Clase HarryPotter
 
-const xINCIIAL = 300;
-const yINICIAL = 20;
+const xINICIAL = 300-16;
+const yINICIAL = 300;
 
 const VELOCIDAD = 20;
 
@@ -12,7 +12,7 @@ let imagen;
 
 function HarryPotter() {
 
-    this.x = xINCIIAL;
+    this.x = xINICIAL;
     this.y = yINICIAL;
 
     this.velocidad = VELOCIDAD;
@@ -21,7 +21,7 @@ function HarryPotter() {
     this.tamañoY = yTAMAÑO;
 
     this.animacion = [
-        [2, 192],
+        [2, 192], [48, 192]
         [5, 64], [47, 64],
         [0, 128], [47, 128]
     ];
