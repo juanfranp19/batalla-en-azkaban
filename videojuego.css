@@ -1,5 +1,5 @@
 body {
-    background-image: url(images/fondoHtml.jpg);
+    background-image: url(assets/images/fondoHtml.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -16,7 +16,7 @@ body div {
     border: solid 2px #0f3f3f;
     border-radius: 15px;
     margin: 20px;
-    background-image: url(images/fondoCanvas.jpg);
+    background-image: url(assets/images/fondoCanvas.jpg);
 
     display: initial;
     /* display: none; */
