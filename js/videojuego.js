@@ -1,6 +1,6 @@
 window.onload = function() {
 
-    let xIzquierda, xDerecha;
+    let xIzquierda, xDerecha, yUp, yDown;
     let canvas, ctx, idAnimacionCanvas, idAnimacionPlayer;
     let playerPotter;
 
@@ -8,11 +8,14 @@ window.onload = function() {
     let posicionInicial;
 
     function generarCanvas() {
+
         ctx.clearRect(0, 0, 600, 400);
 
+        if (yUp) playerPotter.posicionUp();
+        if (yDown) playerPotter.posicionDown();
         if (xIzquierda) playerPotter.posicionIzquierda();
         if (xDerecha) playerPotter.posicionDerecha();
-
+        
         //console.log(posicion);
         ctx.drawImage(
             playerPotter.imagen,
@@ -31,21 +34,25 @@ window.onload = function() {
 
         posicionInicial = 0;
 
-        if (xIzquierda) posicionInicial = 2;
-        if (xDerecha) posicionInicial = 4;
-
-        //if (!xIzquierda && !xDerecha ) 
+        if (yUp) posicionInicial = 0;
+        if (yDown) posicionInicial = 2;
+        if (xIzquierda) posicionInicial = 4;
+        if (xDerecha) posicionInicial = 6;
 
         posicion = posicionInicial + ((posicion + 1) % 2);
-
     }
 
     function activarMovimiento(evt) {
         switch (evt.keyCode) {
+            case 38:
+                yUp = true;
+                break;
+            case 40:
+                yDown = true;
+                break;
             case 37:
                 xIzquierda = true;
                 break;
-
             case 39:
                 xDerecha = true;
                 break;
@@ -54,6 +61,12 @@ window.onload = function() {
 
     function desactivarMovimiento(evt) {
         switch(evt.keyCode) {
+            case 38:
+                yUp = false;
+                break;
+            case 40:
+                yDown = false;
+                break;
             case 37:
                 xIzquierda = false;
                 break;
