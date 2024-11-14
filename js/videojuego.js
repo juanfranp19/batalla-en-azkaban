@@ -12,7 +12,7 @@ window.onload = function() {
     let xHechizo, yHechizo;
     let posicionHechizo = 0;
     let hechizoLanzado = false;
-
+    let hechizoLista = [];
     
 
     function generarCanvas() {
@@ -69,9 +69,16 @@ window.onload = function() {
 
         hechizoPlayer = new Hechizo(xHechizo, yHechizo);
 
+        hechizoLista.push(hechizoPlayer.valores);
+
+        //hechizoLista
+
         //hechizoLanzado = true;
 
-        idAnimacionHechizo = setInterval(generarAnimacionHechizo, 1000/8);
+        idAnimacionHechizo = setInterval(generarAnimacionHechizo, 1000/50);
+
+
+
 
         
 
@@ -79,25 +86,51 @@ window.onload = function() {
 
     function generarAnimacionHechizo() {
 
-        hechizoPlayer.tamañoImagen();
+        hechizoPlayer.movimiento();
 
-        ctx.drawImage(
+        
+
+        posicionHechizo = 0;
+
+        hechizoPlayer.tamañoImagen(posicionHechizo);
+
+        
+
+        ctxHechizo.drawImage(
             hechizoPlayer.imagen,
             hechizoPlayer.animacion[posicionHechizo][0],
             hechizoPlayer.animacion[posicionHechizo][1],
             hechizoPlayer.tamañoX, 
             hechizoPlayer.tamañoY,
-            hechizoPlayer.x, 
+            hechizoLista[0][x], 
             hechizoPlayer.y,
             hechizoPlayer.tamañoX, 
             hechizoPlayer.tamañoY 
         );
+
+        if ((hechizoPlayer.y + hechizoPlayer.tamañoY) < 0) {
+
+            cerrarAnimacionHechizo();
+            
+        }
 
         // if () {
         //     calcular las posiciones Y de Hechizo para calcular su animación
         // }
 
 
+    }
+
+    function cerrarAnimacionHechizo() {
+        clearInterval(idAnimacionHechizo);
+        console.log("ha llegado al final");
+        hechizoLista.pop();
+        ctxHechizo.clearRect(
+            hechizoPlayer.x, 
+            hechizoPlayer.y,
+            hechizoPlayer.tamañoX, 
+            hechizoPlayer.tamañoY 
+        );
     }
 
 
@@ -147,10 +180,14 @@ window.onload = function() {
     document.addEventListener("keyup", desactivarMovimiento, false);
 
     canvas = document.getElementById("myCanvas");
+
     ctx = canvas.getContext("2d");
+    let ctxHechizo = canvas.getContext("2d");
 
     playerPotter = new HarryPotter();
 
     idAnimacionCanvas = setInterval(generarCanvas, 1000/50);
     idAnimacionPlayer = setInterval(generarAnimacionPlayer, 1000/8);
+
+    
 }

@@ -2,6 +2,8 @@
 
 let imagenHechizo;
 
+const hechizoVELOCIDAD = 10;
+
 function Hechizo(x_, y_) {
 
     this.x = x_;
@@ -23,6 +25,23 @@ function Hechizo(x_, y_) {
 imagenHechizo = new Image();
 imagenHechizo.src = "assets/images/hechizo.png";
 Hechizo.prototype.imagen = imagenHechizo;
+
+Hechizo.prototype.movimiento = function() {
+    this. y -= hechizoVELOCIDAD;
+}
+
+Hechizo.prototype.valores = function() {
+
+    let valoresHechizo = {
+        x: this.x,
+        y: this.y,
+        tamañoX: this.tamañoX,
+        tamañoY: this.tamañoY,
+        animacion: this.animacion
+    }
+
+    return valoresHechizo;
+}
 
 Hechizo.prototype.tamañoImagen = function(posicion) {
 
