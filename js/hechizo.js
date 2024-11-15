@@ -45,6 +45,8 @@ Hechizo.prototype.valores = function() {
 
 Hechizo.prototype.tamañoImagen = function(posicion) {
 
+    
+
     switch (posicion) {
         case 0:
             this.tamañoX = 28;

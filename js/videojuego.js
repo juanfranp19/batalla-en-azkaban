@@ -64,18 +64,28 @@ window.onload = function() {
 
     function generarHechizo() {
 
-        xHechizo = playerPotter.x;
-        yHechizo = playerPotter.y
+        
 
-        hechizoPlayer = new Hechizo(xHechizo, yHechizo);
+        if (hechizoLista.length < 1) {
 
-        hechizoLista.push(hechizoPlayer.valores);
+            xHechizo = playerPotter.x;
+            yHechizo = playerPotter.y
+
+            hechizoPlayer = new Hechizo(xHechizo, yHechizo);
+
+
+            
+
+            idAnimacionHechizo = setInterval(generarAnimacionHechizo, 1000/80);
+        }
+        
+
 
         //hechizoLista
 
         //hechizoLanzado = true;
 
-        idAnimacionHechizo = setInterval(generarAnimacionHechizo, 1000/50);
+        
 
 
 
@@ -86,11 +96,13 @@ window.onload = function() {
 
     function generarAnimacionHechizo() {
 
+        actualizarValoresHechizoLista();
+
         hechizoPlayer.movimiento();
 
         
 
-        posicionHechizo = 0;
+        //posicionHechizo = 0;
 
         hechizoPlayer.tamañoImagen(posicionHechizo);
 
@@ -98,20 +110,20 @@ window.onload = function() {
 
         ctxHechizo.drawImage(
             hechizoPlayer.imagen,
-            hechizoPlayer.animacion[posicionHechizo][0],
-            hechizoPlayer.animacion[posicionHechizo][1],
-            hechizoPlayer.tamañoX, 
-            hechizoPlayer.tamañoY,
-            hechizoLista[0][x], 
-            hechizoPlayer.y,
-            hechizoPlayer.tamañoX, 
-            hechizoPlayer.tamañoY 
+            hechizoLista[0].animacion[posicionHechizo][0],
+            hechizoLista[0].animacion[posicionHechizo][1],
+            hechizoLista[0].tamañoX, 
+            hechizoLista[0].tamañoY,
+            hechizoLista[0].x, 
+            hechizoLista[0].y,
+            hechizoLista[0].tamañoX, 
+            hechizoLista[0].tamañoY 
         );
 
         if ((hechizoPlayer.y + hechizoPlayer.tamañoY) < 0) {
 
             cerrarAnimacionHechizo();
-            
+            console.log("cierre animacion del hechizo");
         }
 
         // if () {
@@ -119,6 +131,15 @@ window.onload = function() {
         // }
 
 
+    }
+
+    function actualizarValoresHechizoLista() {
+
+        hechizoLista.pop();
+        hechizoLista.push(hechizoPlayer.valores());
+
+        //console.table(hechizoLista);
+        //console.log(hechizoLista[0].y);
     }
 
     function cerrarAnimacionHechizo() {
