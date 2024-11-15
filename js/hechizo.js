@@ -2,7 +2,7 @@
 
 let imagenHechizo;
 
-const hechizoVELOCIDAD = 10;
+const hechizoVELOCIDAD = 2;
 
 function Hechizo(x_, y_) {
 
@@ -45,12 +45,24 @@ Hechizo.prototype.valores = function() {
 
 Hechizo.prototype.tamañoImagen = function(posicion) {
 
-    
+    if (this.y < 230) {
+        posicion = 1;
+        console.log("si");
+        if (this.y < 150) {
+            posicion = 2;
+            if (this.y < 90) {
+                posicion = 3;
+            }
+        }
+    }
 
+    
+    
     switch (posicion) {
         case 0:
             this.tamañoX = 28;
             this.tamañoY = 79;
+            // (return)
             break;
         case 1:
             this.tamañoX = 56;
@@ -78,4 +90,6 @@ Hechizo.prototype.tamañoImagen = function(posicion) {
             console.log("no se ha podido cargar el tamaño de la imagen");
             break;
     }
+
+    
 }
