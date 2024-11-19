@@ -1,9 +1,9 @@
 // Clase HarryPotter
 
 const xINICIALplayer = 300 - 16;
-const yINICIALplayer = 300; //PENDIENTE HACER ANIMACIONES PARA SUBIR Y BAJAR 20 PIXSELES
+const yINICIALplayer = 300; 
 
-const xVELOCIDADplayer = 5;
+const xVELOCIDADplayer = 5; //modificar para cuando se incremente la dificultad
 const yVELOCIDADplayer = 1;
 
 const xTAMAÑOplayer = 48;
