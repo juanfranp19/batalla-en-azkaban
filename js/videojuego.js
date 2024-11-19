@@ -1,7 +1,7 @@
 window.onload = function() {
 
     let canvas, ctx;
-    let idAnimacionCanvas, idAnimacionPlayer, idAnimacionHechizo;
+    let idAnimacionCanvas, idAnimacionPlayer, idAnimacionHechizo, idAnimacionDementor;
 
     let playerPotter;
     let xIzquierda, xDerecha, yUp, yDown, espacio;
@@ -13,20 +13,13 @@ window.onload = function() {
     let posicionHechizo = 0;
     let hechizoLanzado = false;
     let hechizoLista = [];
-    
 
-    function generarCanvas() {
+    let dementor;
+    let posicionDementor = 0;
+    let dementoresLista = [];
 
-        ctx.clearRect(0, 0, 600, 400);
 
-        if (yUp) playerPotter.posicionUp();
-        if (yDown) playerPotter.posicionDown();
-        if (xIzquierda) playerPotter.posicionIzquierda();
-        if (xDerecha) playerPotter.posicionDerecha();
-
-        if (espacio) generarHechizo();
-        
-        //console.log(posicionPlayer);
+    function dibujarPlayer() {
         ctx.drawImage(
             playerPotter.imagen,
             playerPotter.animacion[posicionPlayer][0],
@@ -38,11 +31,152 @@ window.onload = function() {
             playerPotter.tamañoX,
             playerPotter.tamañoY
         );
+    }
 
-        if (hechizoLanzado) {
-            console.log("lanzado");
+    function dibujarHechizo() {
+        ctxHechizo.drawImage(
+            hechizoPlayer.imagen,
+            hechizoLista[0].animacion[posicionHechizo][0],
+            hechizoLista[0].animacion[posicionHechizo][1],
+            hechizoLista[0].tamañoX, 
+            hechizoLista[0].tamañoY,
+            hechizoLista[0].x, 
+            hechizoLista[0].y,
+            hechizoLista[0].tamañoX, 
+            hechizoLista[0].tamañoY 
+        );
+    }
+    
+    function comandos() {
+
+        if (yUp) playerPotter.posicionUp();
+        if (yDown) playerPotter.posicionDown();
+        if (xIzquierda) playerPotter.posicionIzquierda();
+        if (xDerecha) playerPotter.posicionDerecha();
+
+        if (espacio) generarHechizo();
+    }
+
+
+    function generarCanvas() {
+
+        
+        
+
+        ctx.clearRect(0, 0, 600, 400);
+
+
+
+        comandos();
+        
+        dibujarPlayer();
+
+        
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function crearDementores() {
+
+        // crea los dementores y los añade a la lista de los dementores vivos
+
+        for (let i = 0; i < NUMEROdementores; i++) {
+
+            let dementor = new Dementor();
+            dementoresLista.push(dementor.valores());
+        }
+
+    }
+
+    function comprobarDementores() {
+
+        if (dementoresLista.length === 0) {
+            clearInterval(idAnimacionDementor); // animacion aquii <<<<<<<<<<<
+            console.log("fin animación dementor");
         }
     }
+
+    function dibujarDementores() {
+
+        for (let i = 0; i < dementoresLista.length; i++) {
+
+            dementor = dementoresLista[i];   //  está bien??? hay dementor en varias functiones <<<<<<<<<<<
+
+            ctx.drawImage(
+                dementor.imagen,
+                dementor.animacion[posicionDementor][0],
+                dementor.animacion[posicionDementor][1],
+                dementor.tamañoX, 
+                dementor.tamañoY,
+                dementor.x,
+                dementor.y,
+                dementor.tamañoX,
+                dementor.tamañoY
+            );
+
+        }
+    }
+
+    function movimientoDementor() {
+
+        comprobarDementores();
+
+        for (let i = 0; i < dementoresLista.length; i++) {
+
+            dementor = dementoresLista[i];
+
+            if (dementor.y >= TOPEsueloDEMENTOR || !dementor.vivo) {
+
+                dementoresLista.splice(i, 1);
+
+            } else if (dementor.vivo) dementor.movimiento;
+            
+        }
+
+
+
+    }
+
+
+
+
+
+// aún no se ha creado el intervalo de los dementores ni sus animaciones
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     function generarAnimacionPlayer() {
 
@@ -59,8 +193,6 @@ window.onload = function() {
         
         if (espacio) posicionPlayer = 1;
     }
-
-
 
     function generarHechizo() {
 
@@ -88,7 +220,7 @@ window.onload = function() {
         hechizoPlayer.movimiento();
         
 
-        
+        dibujarHechizo();
 
         
 
@@ -108,17 +240,7 @@ window.onload = function() {
 
         hechizoPlayer.tamañoImagen(posicionHechizo);
         
-        ctxHechizo.drawImage(
-            hechizoPlayer.imagen,
-            hechizoLista[0].animacion[posicionHechizo][0],
-            hechizoLista[0].animacion[posicionHechizo][1],
-            hechizoLista[0].tamañoX, 
-            hechizoLista[0].tamañoY,
-            hechizoLista[0].x, 
-            hechizoLista[0].y,
-            hechizoLista[0].tamañoX, 
-            hechizoLista[0].tamañoY 
-        );
+        
 
         
 
@@ -228,7 +350,7 @@ window.onload = function() {
 
     playerPotter = new HarryPotter();
 
-    idAnimacionCanvas = setInterval(generarCanvas, 1000/50);
+    idAnimacionCanvas = setInterval(generarCanvas, 24/1000);
     idAnimacionPlayer = setInterval(generarAnimacionPlayer, 1000/8);
 
     
