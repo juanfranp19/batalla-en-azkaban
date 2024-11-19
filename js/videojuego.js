@@ -76,7 +76,7 @@ window.onload = function() {
             hechizoLista.push(hechizoPlayer.valores());
             
 
-            idAnimacionHechizo = setInterval(generarAnimacionHechizo, 1000/80);
+            idAnimacionHechizo = setInterval(generarAnimacionHechizo, 1000/80); // id incrementado poco a poco la velocidad
         }
         
     }
@@ -85,15 +85,30 @@ window.onload = function() {
 
         actualizarValoresHechizoLista();
 
-        hechizoPlayer.movimiento();
-
-        //console.log(hechizoLista[0].y);
+        if (!hechizoLista[0].haChocado) hechizoPlayer.movimiento();
+        
 
         
 
-        //posicionHechizo = 0;
+        
+
+        posicionHechizo = 0; //borrar porque ya está arriba
+
+        if (hechizoLista[0].y < 230) {
+            posicionHechizo = 1;
+
+            if (hechizoLista[0].y < 150) {
+                posicionHechizo = 2;
+
+                if (hechizoLista[0].y < 90) {
+                    posicionHechizo = 3;
+                }
+            }
+        }
+        if (hechizoLista[0].haChocado) posicionHechizo = 5;
 
         hechizoPlayer.tamañoImagen(posicionHechizo);
+        
 
         console.log(posicionHechizo);
 
@@ -111,13 +126,22 @@ window.onload = function() {
             hechizoLista[0].tamañoY 
         );
 
-        // (hechizoPlayer.y + hechizoPlayer.tamañoY)
-        if ( hechizoLista[0].y <= 0) {
+        
 
-            cerrarAnimacionHechizo();
-            console.log("cierre animacion del hechizo");
+        // (hechizoPlayer.y + hechizoPlayer.tamañoY)
+        if ( hechizoLista[0].y <= 0 /*|| choca*/) {
+
+            
+
+            hechizoPlayer.haChocado = true;
+
+            if (hechizoLista[0].haChocado) cerrarAnimacionHechizo();
+            
         }
 
+        // borrar
+        //
+        //
         // if () {
         //     calcular las posiciones Y de Hechizo para calcular su animación
         // }
@@ -129,25 +153,39 @@ window.onload = function() {
 
         hechizoLista.pop();
 
-        
-
         hechizoLista.push(hechizoPlayer.valores());
 
+        // borrar
+        //
         //console.table(hechizoLista);
         //console.log(hechizoLista[0].y);
     }
 
+
+    function animacionHechizoFin() {
+
+
+    }
+
+
     function cerrarAnimacionHechizo() {
 
         clearInterval(idAnimacionHechizo);
-        console.log("ha llegado al final");
-        ctxHechizo.clearRect(
-            hechizoLista[0].x, 
-            hechizoLista[0].y,
-            hechizoLista[0].tamañoX, 
-            hechizoLista[0].tamañoY
-        );
+
+
+
+        // ctxHechizo.clearRect(
+        //     hechizoLista[0].x, 
+        //     hechizoLista[0].y,
+        //     hechizoLista[0].tamañoX, 
+        //     hechizoLista[0].tamañoY
+        // );
+
         hechizoLista.pop();
+
+        // console.log("cierre animacion del hechizo");
+
+        // console.log(object);
     }
 
 
