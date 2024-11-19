@@ -1,30 +1,30 @@
 // Clase HarryPotter
 
-const xINICIAL = 300 - 16;
-const yINICIAL = 300; //PENDIENTE HACER ANIMACIONES PARA SUBIR Y BAJAR 20 PIXSELES
+const xINICIALplayer = 300 - 16;
+const yINICIALplayer = 300; //PENDIENTE HACER ANIMACIONES PARA SUBIR Y BAJAR 20 PIXSELES
 
-const xVELOCIDAD = 5;
-const yVELOCIDAD = 1;
+const xVELOCIDADplayer = 5;
+const yVELOCIDADplayer = 1;
 
-const xTAMAÑO = 48;
-const yTAMAÑO = 64;
+const xTAMAÑOplayer = 48;
+const yTAMAÑOplayer = 64;
 
-const xTOPE = 600 - xTAMAÑO;
-const yTOPEUP = yINICIAL - 10;
-const yTOPEDOWN = yINICIAL + 25;
+const xTOPEplayer = 600 - xTAMAÑOplayer;
+const yTOPEUPplayer = yINICIALplayer - 10;
+const yTOPEDOWNplayer = yINICIALplayer + 25;
 
 let imagenPotter;
 
 function HarryPotter() {
 
-    this.x = xINICIAL;
-    this.y = yINICIAL;
+    this.x = xINICIALplayer;
+    this.y = yINICIALplayer;
 
-    this.velocidadX = xVELOCIDAD;
-    this.velocidadY = yVELOCIDAD;
+    this.velocidadX = xVELOCIDADplayer;
+    this.velocidadY = yVELOCIDADplayer;
 
-    this.tamañoX = xTAMAÑO;
-    this.tamañoY = yTAMAÑO;
+    this.tamañoX = xTAMAÑOplayer;
+    this.tamañoY = yTAMAÑOplayer;
 
     this.animacion = [
         [2, 192], [48, 192], // arriba
@@ -51,8 +51,8 @@ HarryPotter.prototype.posicionDerecha = function() {
 
     this.x += this.velocidadX;
 
-    if (this.x > xTOPE) {
-        this.x = xTOPE;
+    if (this.x > xTOPEplayer) {
+        this.x = xTOPEplayer;
     }
 }
 
@@ -60,8 +60,8 @@ HarryPotter.prototype.posicionUp = function() {
 
     this.y -= this.velocidadY;
 
-    if (this.y < yTOPEUP) {
-        this.y = yTOPEUP;
+    if (this.y < yTOPEUPplayer) {
+        this.y = yTOPEUPplayer;
     }
 }
 
@@ -69,7 +69,7 @@ HarryPotter.prototype.posicionDown = function() {
     
     this.y += this.velocidadY;
 
-    if (this.y > yTOPEDOWN) {
-        this.y = yTOPEDOWN;
+    if (this.y > yTOPEDOWNplayer) {
+        this.y = yTOPEDOWNplayer;
     }
 }
