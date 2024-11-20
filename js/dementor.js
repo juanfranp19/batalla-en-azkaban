@@ -5,7 +5,7 @@ function getRandomX() {
     return numeroRandomEjeX;
 }
 function getRandomVelocidad() {
-    const velocidad = 0.1 + Math.random();
+    const velocidad = Math.random() * (0.3 - 0.1) + 0.1;
     return velocidad;
 }
 // const VELOCIDADdementor = 5;
@@ -36,10 +36,7 @@ function Dementor() {
 
     this.velocidad = getRandomVelocidad();
 
-    this.animacion = [
-        [8, 1], [83, 0], [166, 1], // negro
-        [8, 145], [85, 143], [167, 144] // gris
-    ];
+    
 
     this.vivo = true;
 
@@ -47,6 +44,8 @@ function Dementor() {
         let valoresDementor = {
             x: this.x, 
             y: this.y,
+            animacionX: this.animacion[0][0],
+            animacionY: this.animacion[0][1],
             tamañoX: this.tamañoX,
             tamañoY: this.tamañoY,
             velocidad: this.velocidad,
@@ -58,13 +57,20 @@ function Dementor() {
 
 }
 
+Dementor.prototype.animacion = [
+
+    [8, 1], [83, 0], [166, 1], // negro
+    [8, 145], [85, 143], [167, 144] // gris
+];
+
 imagenDementor = new Image();
 imagenDementor.src = "assets/images/dementor.png";
 Dementor.prototype.imagen = imagenDementor;
 
-Dementor.prototype.movimiento = function() {
+Dementor.prototype.movimiento = function(dementor) {
 
-    this.y += this.velocidad;
+    dementor.y += dementor.velocidad;
+    console.log("se mueve");
 }
 
 

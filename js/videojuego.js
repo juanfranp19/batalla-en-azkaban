@@ -19,6 +19,8 @@ window.onload = function() {
     let posicionInicialPlayerDementor = 0;
     let dementoresLista = [];
 
+    //console.log(dementoresLista.length);
+
 
     function dibujarPlayer() {
         ctx.drawImage(
@@ -72,6 +74,8 @@ window.onload = function() {
         
         dibujarPlayer();
 
+        generarDementor();
+
 
         
         
@@ -90,20 +94,59 @@ window.onload = function() {
 
 
 
-    function oleadaDementores() {
-    
-        idAnimacionDementor = setInterval(intervalDementor, 24/1000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function generarDementor() {
+
+        console.log(dementoresLista.length);
+
+
+        if (dementoresLista.length === 0) {
+
+            crearDementores();
+
+            idAnimacionDementor = setInterval(intervalDementor, 1000/300);
+
+        }
     }
 
-    
+
+
 
     function intervalDementor() {
 
-        //dibujarDementores();
+        comprobarDementores();
 
         movimientoDementor();
 
+        dibujarDementores();
+
+        
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     function crearDementores() {
@@ -118,24 +161,37 @@ window.onload = function() {
 
     }
 
+
+
+
+
+
+
+
+
+
+
     
 
     function dibujarDementores() {
 
         for (let i = 0; i < dementoresLista.length; i++) {
 
-            dementor = dementoresLista[i];   //  está bien??? hay dementor en varias functiones <<<<<<<<<<<
+            dementor = dementoresLista[i];   
 
             posicionInicialPlayerDementor = 0;
 
-            //if (dementor.y >= 300) posicionInicialPlayerDementor = 3;
+            //console.log(dementor.animacion[0][0]);
 
-            //posicionDementor = posicionInicialPlayerDementor + ((posicionDementor + 1) % 3);
+            //posicionPlayer = posicionInicialPlayer + ((posicionPlayer + 1) % 2);
+
+            
+            console.log(Dementor.prototype.animacion[0][0]);
 
             ctx.drawImage(
-                dementor.imagen,
-                dementor.animacion[0][0],
-                dementor.animacion[0][1],
+                Dementor.prototype.imagen,
+                dementor.animacionX,
+                dementor.animacionY,
                 dementor.tamañoX, 
                 dementor.tamañoY,
                 dementor.x,
@@ -149,29 +205,58 @@ window.onload = function() {
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     function movimientoDementor() {
 
-        comprobarDementores();
+        
 
         for (let i = 0; i < dementoresLista.length; i++) {
 
             dementor = dementoresLista[i];
 
+            /*
             if (dementor.y >= TOPEsueloDEMENTOR || !dementor.vivo) {
 
                 dementoresLista.splice(i, 1);
 
-            } else if (dementor.vivo) dementor.movimiento;
+            } */
+            
+            //if (dementor.vivo) 
+            
+            Dementor.prototype.movimiento(dementor);
             
         }
 
-        dibujarDementores();
-
-
-
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     function comprobarDementores() {
+
+        console.log("todo ok");
 
         if (dementoresLista.length === 0) {
             clearInterval(idAnimacionDementor); // animacion aquii <<<<<<<<<<<
@@ -182,6 +267,28 @@ window.onload = function() {
 
 
 // aún no se ha creado el intervalo de los dementores ni sus animaciones
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -250,7 +357,7 @@ window.onload = function() {
 
         
 
-        posicionHechizo = 0; //borrar porque ya está arriba
+        posicionHechizo = 0; 
 
         if (hechizoLista[0].y < 230) {
             posicionHechizo = 1;
@@ -372,18 +479,16 @@ window.onload = function() {
     canvas = document.getElementById("myCanvas");
 
     ctx = canvas.getContext("2d");
-    let ctxHechizo = canvas.getContext("2d");
 
     playerPotter = new HarryPotter();
 
-    crearDementores();
+    //crearDementores();
 
-    oleadaDementores();
-
-    console.table(dementoresLista);
+    //console.table(dementoresLista);
 
     idAnimacionCanvas = setInterval(generarCanvas, 1000/50);
     idAnimacionPlayer = setInterval(generarAnimacionPlayer, 1000/8);
+    //idAnimacionDementor = setInterval(intervalDementor, 24/1000);
 
     
 }
