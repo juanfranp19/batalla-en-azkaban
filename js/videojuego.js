@@ -6,7 +6,7 @@ window.onload = function() {
     let playerPotter;
     let xIzquierda, xDerecha, yUp, yDown, espacio;
     let posicionPlayer = 0;
-    let posicionInicial;
+    let posicionInicialPlayer;
 
     let hechizoPlayer;
     let xHechizo, yHechizo;
@@ -16,6 +16,7 @@ window.onload = function() {
 
     let dementor;
     let posicionDementor = 0;
+    let posicionInicialPlayerDementor = 0;
     let dementoresLista = [];
 
 
@@ -34,7 +35,7 @@ window.onload = function() {
     }
 
     function dibujarHechizo() {
-        ctxHechizo.drawImage(
+        ctx.drawImage(
             hechizoPlayer.imagen,
             hechizoLista[0].animacion[posicionHechizo][0],
             hechizoLista[0].animacion[posicionHechizo][1],
@@ -71,6 +72,8 @@ window.onload = function() {
         
         dibujarPlayer();
 
+
+        
         
     }
 
@@ -87,7 +90,20 @@ window.onload = function() {
 
 
 
+    function oleadaDementores() {
+    
+        idAnimacionDementor = setInterval(intervalDementor, 24/1000);
+    }
 
+    
+
+    function intervalDementor() {
+
+        //dibujarDementores();
+
+        movimientoDementor();
+
+    }
 
 
     function crearDementores() {
@@ -102,13 +118,7 @@ window.onload = function() {
 
     }
 
-    function comprobarDementores() {
-
-        if (dementoresLista.length === 0) {
-            clearInterval(idAnimacionDementor); // animacion aquii <<<<<<<<<<<
-            console.log("fin animación dementor");
-        }
-    }
+    
 
     function dibujarDementores() {
 
@@ -116,10 +126,16 @@ window.onload = function() {
 
             dementor = dementoresLista[i];   //  está bien??? hay dementor en varias functiones <<<<<<<<<<<
 
+            posicionInicialPlayerDementor = 0;
+
+            //if (dementor.y >= 300) posicionInicialPlayerDementor = 3;
+
+            //posicionDementor = posicionInicialPlayerDementor + ((posicionDementor + 1) % 3);
+
             ctx.drawImage(
                 dementor.imagen,
-                dementor.animacion[posicionDementor][0],
-                dementor.animacion[posicionDementor][1],
+                dementor.animacion[0][0],
+                dementor.animacion[0][1],
                 dementor.tamañoX, 
                 dementor.tamañoY,
                 dementor.x,
@@ -127,6 +143,8 @@ window.onload = function() {
                 dementor.tamañoX,
                 dementor.tamañoY
             );
+
+            
 
         }
     }
@@ -147,11 +165,19 @@ window.onload = function() {
             
         }
 
+        dibujarDementores();
+
 
 
     }
 
+    function comprobarDementores() {
 
+        if (dementoresLista.length === 0) {
+            clearInterval(idAnimacionDementor); // animacion aquii <<<<<<<<<<<
+            console.log("fin animación dementor");
+        }
+    }
 
 
 
@@ -180,14 +206,14 @@ window.onload = function() {
 
     function generarAnimacionPlayer() {
 
-        posicionInicial = 0;
+        posicionInicialPlayer = 0;
 
-        if (yUp) posicionInicial = 0;
-        if (yDown) posicionInicial = 2;
-        if (xIzquierda) posicionInicial = 4;
-        if (xDerecha) posicionInicial = 6;
+        if (yUp) posicionInicialPlayer = 0;
+        if (yDown) posicionInicialPlayer = 2;
+        if (xIzquierda) posicionInicialPlayer = 4;
+        if (xDerecha) posicionInicialPlayer = 6;
 
-        posicionPlayer = posicionInicial + ((posicionPlayer + 1) % 2);
+        posicionPlayer = posicionInicialPlayer + ((posicionPlayer + 1) % 2);
 
         if (!yUp && !yDown && !xIzquierda && !xDerecha) posicionPlayer = 0;
         
@@ -350,7 +376,13 @@ window.onload = function() {
 
     playerPotter = new HarryPotter();
 
-    idAnimacionCanvas = setInterval(generarCanvas, 24/1000);
+    crearDementores();
+
+    oleadaDementores();
+
+    console.table(dementoresLista);
+
+    idAnimacionCanvas = setInterval(generarCanvas, 1000/50);
     idAnimacionPlayer = setInterval(generarAnimacionPlayer, 1000/8);
 
     

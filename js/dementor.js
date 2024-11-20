@@ -1,7 +1,7 @@
 // Clase Dementor
 
 function getRandomX() {
-    const numeroRandomEjeX = Math.random() * (600 - LADO);
+    const numeroRandomEjeX = Math.random() * (600 - xTAMAÑOdementor);
     return numeroRandomEjeX;
 }
 function getRandomVelocidad() {
@@ -10,10 +10,12 @@ function getRandomVelocidad() {
 }
 // const VELOCIDADdementor = 5;
 
-const TOPEsueloDEMENTOR = 400 - yTAMAÑOdementor;
+
 
 const xTAMAÑOdementor = 74;
 const yTAMAÑOdementor = 134;
+
+const TOPEsueloDEMENTOR = 400 - yTAMAÑOdementor;
 
 
 let imagenDementor;
