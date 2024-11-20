@@ -9,18 +9,24 @@
         <script src="js/dementor.js"></script>
         <script src="js/harrypotter.js"></script>
         <script src="js/hechizo.js"></script>
+
         <script src="js/videojuego.js"></script>
         
 
     </head>
     <body>
 
-        <div>
-            <input type="button" value="NUEVA PARTIDA">
+        <div class="container">
+            <h1>Bienvenido al juego</h1>
+            <input type="text" id="nombrePlayer" placeholder="Tu nombre"> <br><br>
+            <input type="submit" id="nuevaPartida" value="NUEVA PARTIDA">
+
+            <p id="mensajePlayer"></p>
+            
         </div>
 
         <div>
-            <canvas id="myCanvas" width="600" height="400"></canvas>
+            <canvas id="myCanvas" width="600" height="400" disabled></canvas>
         </div>
 
         <div>

@@ -13,7 +13,7 @@ body div {
 }
 
 #myCanvas {
-    border: solid 2px #0f3f3f;
+    border: solid 2px #238d65;
     border-radius: 15px;
     margin: 20px;
     background-image: url(assets/images/fondoCanvas.jpg);
@@ -21,3 +21,93 @@ body div {
     display: initial;
     /* display: none; */
 }
+
+
+
+
+
+
+.container {
+    padding: 40px;
+    border-radius: 10px;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #238d65; 
+    margin-bottom: 30px;
+}
+
+
+#nuevaPartida {
+    background-color: #238d65; 
+    color: #e3fff4; 
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#nuevaPartida:hover {
+    background-color: #004d00; 
+    transform: scale(1.1); 
+}
+
+#nuevaPartida:disabled {
+    background-color: #333;
+    cursor: not-allowed;
+}
+
+/* Input text style */
+#nombrePlayer {
+    background-color: #333; /* Fondo oscuro para el input */
+    color: #238d65; /* Texto verde brillante */
+    border: 2px solid #238d65; /* Borde verde brillante */
+    padding: 12px 20px;
+    font-size: 1.2em;
+    border-radius: 8px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 300px;
+    transition: border-color 0.3s ease;
+}
+
+#nombrePlayer:focus {
+    outline: none;
+    border-color: #238d65; /* Borde verde claro al hacer foco */
+    background-color: #2b2b2b; /* Fondo oscuro ligeramente diferente cuando está en foco */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#mensajePlayer {
+    font-size: 1.5em;
+    color: #238d65; 
+    margin-top: 20px;
+    display: none; 
+}
+
+
+
+
+
+
+
+
+
+
+
+

@@ -20,7 +20,61 @@ window.onload = function() {
     let posicionInicialDementor = 0;
     let dementoresLista = [];
 
-    //console.log(dementoresLista.length);
+    let botonNuevaPartida;
+    let inputNombrePlayer;
+    let pMensajePlayer;
+    let nodePMensajePlayer;
+
+
+    function start() {
+    
+        inputNombrePlayer = document.getElementById("nombrePlayer");
+        pMensajePlayer = document.getElementById("mensajePlayer");
+    
+        const NOMBREJUGADOR = inputNombrePlayer.value;
+    
+        botonNuevaPartida.disabled = true;
+    
+        if (NOMBREJUGADOR) {
+            
+            nodePMensajePlayer = document.createTextNode("¡Hola, " + NOMBREJUGADOR + "!");
+            pMensajePlayer.appendChild(nodePMensajePlayer);
+    
+            pMensajePlayer.style.display = 'block';
+            
+            inputNombrePlayer.style.display = 'none';
+    
+        } else {
+            
+            nodePMensajePlayer = document.createTextNode("¡Hola, jugador!");
+            pMensajePlayer.appendChild(nodePMensajePlayer);
+    
+            pMensajePlayer.style.display = 'block';
+            
+            inputNombrePlayer.style.display = 'none';
+        }
+    
+        cargarPartida();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     function dibujarPlayer() {
@@ -51,32 +105,18 @@ window.onload = function() {
         );
     }
     
-    function comandos() {
-
-        if (yUp) playerPotter.posicionUp();
-        if (yDown) playerPotter.posicionDown();
-        if (xIzquierda) playerPotter.posicionIzquierda();
-        if (xDerecha) playerPotter.posicionDerecha();
-
-        if (espacio) generarHechizo();
-    }
+    
 
 
     function generarCanvas() {
 
-        
-        
-
         ctx.clearRect(0, 0, 600, 400);
-
-
 
         comandos();
         
         dibujarPlayer();
 
         generarDementor();
-
     }
 
 
@@ -246,9 +286,6 @@ window.onload = function() {
 
 
 
-// aún no se ha creado el intervalo de los dementores ni sus animaciones
-
-
 
 
 
@@ -413,6 +450,37 @@ window.onload = function() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function comandos() {
+
+        if (yUp) playerPotter.posicionUp();
+        if (yDown) playerPotter.posicionDown();
+        if (xIzquierda) playerPotter.posicionIzquierda();
+        if (xDerecha) playerPotter.posicionDerecha();
+
+        if (espacio) generarHechizo();
+    }
+
     function activarMovimiento(evt) {
         switch (evt.keyCode) {
             case 38:
@@ -453,22 +521,32 @@ window.onload = function() {
         }
     }
 
-    document.addEventListener("keydown", activarMovimiento, false);
-    document.addEventListener("keyup", desactivarMovimiento, false);
 
-    canvas = document.getElementById("myCanvas");
 
-    ctx = canvas.getContext("2d");
 
-    playerPotter = new HarryPotter();
 
-    //crearDementores();
 
-    //console.table(dementoresLista);
+    function cargarPartida() {
 
-    idAnimacionCanvas = setInterval(generarCanvas, 1000/50);
-    idAnimacionPlayer = setInterval(generarAnimacionPlayer, 1000/8);
-    //idAnimacionDementor = setInterval(intervalDementor, 24/1000);
+        document.addEventListener("keydown", activarMovimiento, false);
+        document.addEventListener("keyup", desactivarMovimiento, false);
+
+        canvas = document.getElementById("myCanvas");
+        ctx = canvas.getContext("2d");
+
+        playerPotter = new HarryPotter();
+
+        idAnimacionCanvas = setInterval(generarCanvas, 1000/50);
+        idAnimacionPlayer = setInterval(generarAnimacionPlayer, 1000/8);
+    }
+
+
+
+
+
 
     
+
+    botonNuevaPartida = document.getElementById("nuevaPartida");
+    botonNuevaPartida.onclick = start;
 }
