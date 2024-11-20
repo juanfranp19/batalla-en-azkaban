@@ -60,6 +60,7 @@ HarryPotter.prototype.posicionUp = function() {
 
     this.y -= this.velocidadY;
 
+
     if (this.y < yTOPEUPplayer) {
         this.y = yTOPEUPplayer;
     }

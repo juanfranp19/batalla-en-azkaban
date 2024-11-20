@@ -1,7 +1,7 @@
 window.onload = function() {
 
     let canvas, ctx;
-    let idAnimacionCanvas, idAnimacionPlayer, idAnimacionHechizo, idAnimacionDementor;
+    let idAnimacionCanvas, idAnimacionPlayer, idAnimacionHechizo, idIntervalDementor, idAnimacionDementor;
 
     let playerPotter;
     let xIzquierda, xDerecha, yUp, yDown, espacio;
@@ -13,10 +13,11 @@ window.onload = function() {
     let posicionHechizo = 0;
     let hechizoLanzado = false;
     let hechizoLista = [];
+    let hechizo;      
 
     let dementor;
     let posicionDementor = 0;
-    let posicionInicialPlayerDementor = 0;
+    let posicionInicialDementor = 0;
     let dementoresLista = [];
 
     //console.log(dementoresLista.length);
@@ -38,15 +39,15 @@ window.onload = function() {
 
     function dibujarHechizo() {
         ctx.drawImage(
-            hechizoPlayer.imagen,
-            hechizoLista[0].animacion[posicionHechizo][0],
-            hechizoLista[0].animacion[posicionHechizo][1],
-            hechizoLista[0].tamañoX, 
-            hechizoLista[0].tamañoY,
-            hechizoLista[0].x, 
-            hechizoLista[0].y,
-            hechizoLista[0].tamañoX, 
-            hechizoLista[0].tamañoY 
+            Hechizo.prototype.imagen,
+            Hechizo.prototype.animacion[posicionHechizo][0],
+            Hechizo.prototype.animacion[posicionHechizo][1],
+            hechizo.tamañoX, 
+            hechizo.tamañoY,
+            hechizo.x, 
+            hechizo.y,
+            hechizo.tamañoX, 
+            hechizo.tamañoY 
         );
     }
     
@@ -76,9 +77,6 @@ window.onload = function() {
 
         generarDementor();
 
-
-        
-        
     }
 
 
@@ -109,45 +107,16 @@ window.onload = function() {
 
     function generarDementor() {
 
-        console.log(dementoresLista.length);
-
+        //console.log(dementoresLista.length);
 
         if (dementoresLista.length === 0) {
 
             crearDementores();
 
-            idAnimacionDementor = setInterval(intervalDementor, 1000/300);
-
+            idIntervalDementor = setInterval(intervalDementor, 1000/300);
+            idAnimacionDementor = setInterval(generarAnimacionDementor, 1000/5);
         }
     }
-
-
-
-
-    function intervalDementor() {
-
-        comprobarDementores();
-
-        movimientoDementor();
-
-        dibujarDementores();
-
-        
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     function crearDementores() {
 
@@ -158,8 +127,95 @@ window.onload = function() {
             let dementor = new Dementor();
             dementoresLista.push(dementor.valores());
         }
-
     }
+
+    function intervalDementor() {
+
+        comprobarDementores();
+
+        movimientoDementor();
+
+        dibujarDementores();
+    }
+
+    function comprobarDementores() {
+
+        //console.log("todo ok");
+
+        if (dementoresLista.length === 0) {
+            clearInterval(idIntervalDementor);
+            clearInterval(idAnimacionDementor);
+            console.log("fin animación dementor");
+        }
+    }
+
+    function movimientoDementor() {
+
+        for (let i = 0; i < dementoresLista.length; i++) {
+
+            dementor = dementoresLista[i];
+
+            
+            if (dementor.y >= TOPEsueloDEMENTOR || !dementor.vivo) {
+
+                dementoresLista.splice(i, 1);
+                console.log("dementores: " + dementoresLista.length);
+
+            }
+
+            
+            
+            //if (dementor.vivo) 
+            
+            Dementor.prototype.movimiento(dementor);
+        }
+    }
+
+    function dibujarDementores() {
+
+        for (let i = 0; i < dementoresLista.length; i++) {
+
+            dementor = dementoresLista[i];   
+
+            
+            //console.log(posicionDementor);
+            
+            //console.log(Dementor.prototype.animacion[0][0]);
+
+            ctx.drawImage(
+                Dementor.prototype.imagen,
+                Dementor.prototype.animacion[posicionDementor][0],
+                Dementor.prototype.animacion[posicionDementor][1],
+                dementor.tamañoX, 
+                dementor.tamañoY,
+                dementor.x,
+                dementor.y,
+                dementor.tamañoX,
+                dementor.tamañoY
+            );
+        }
+    }
+
+    function generarAnimacionDementor() {
+
+        for (let i = 0; i < dementoresLista.length; i++) {
+
+            dementor = dementoresLista[i];
+
+            posicionInicialDementor = 0;
+
+            //console.log(dementor.y);
+
+            //if (dementor.y >= 170) posicionInicialDementor = 3;
+
+            //console.log(dementor.animacion[0][0]);
+
+            posicionDementor = posicionInicialDementor + ((posicionDementor + 1) % 3);
+        }
+    }
+
+
+
 
 
 
@@ -173,37 +229,6 @@ window.onload = function() {
 
     
 
-    function dibujarDementores() {
-
-        for (let i = 0; i < dementoresLista.length; i++) {
-
-            dementor = dementoresLista[i];   
-
-            posicionInicialPlayerDementor = 0;
-
-            //console.log(dementor.animacion[0][0]);
-
-            //posicionPlayer = posicionInicialPlayer + ((posicionPlayer + 1) % 2);
-
-            
-            console.log(Dementor.prototype.animacion[0][0]);
-
-            ctx.drawImage(
-                Dementor.prototype.imagen,
-                dementor.animacionX,
-                dementor.animacionY,
-                dementor.tamañoX, 
-                dementor.tamañoY,
-                dementor.x,
-                dementor.y,
-                dementor.tamañoX,
-                dementor.tamañoY
-            );
-
-            
-
-        }
-    }
 
 
 
@@ -217,52 +242,7 @@ window.onload = function() {
 
 
 
-
-    function movimientoDementor() {
-
-        
-
-        for (let i = 0; i < dementoresLista.length; i++) {
-
-            dementor = dementoresLista[i];
-
-            /*
-            if (dementor.y >= TOPEsueloDEMENTOR || !dementor.vivo) {
-
-                dementoresLista.splice(i, 1);
-
-            } */
-            
-            //if (dementor.vivo) 
-            
-            Dementor.prototype.movimiento(dementor);
-            
-        }
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    function comprobarDementores() {
-
-        console.log("todo ok");
-
-        if (dementoresLista.length === 0) {
-            clearInterval(idAnimacionDementor); // animacion aquii <<<<<<<<<<<
-            console.log("fin animación dementor");
-        }
-    }
+    
 
 
 
@@ -352,20 +332,20 @@ window.onload = function() {
 
         hechizoPlayer.movimiento();
         
-
+        hechizo = hechizoLista[0];
         dibujarHechizo();
 
         
 
         posicionHechizo = 0; 
 
-        if (hechizoLista[0].y < 230) {
+        if (hechizo.y < 230) {
             posicionHechizo = 1;
 
-            if (hechizoLista[0].y < 150) {
+            if (hechizo.y < 150) {
                 posicionHechizo = 2;
 
-                if (hechizoLista[0].y < 90) {
+                if (hechizo.y < 90) {
                     posicionHechizo = 3;
                 }
             }

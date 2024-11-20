@@ -16,10 +16,7 @@ function Hechizo(x_, y_) {
 
     this.velocidad = VELOCIDADhechizo;
 
-    this.animacion = [
-        [8, 10], [40, 10], [107, 10], [181, 10], // animación subida del hechizo
-        [266, 10], [375, 10] // animación choque del hechizo
-    ];
+    
 
     this.valores = function() {
         let valoresHechizo = {
@@ -38,6 +35,11 @@ function Hechizo(x_, y_) {
 imagenHechizo = new Image();
 imagenHechizo.src = "assets/images/hechizo.png";
 Hechizo.prototype.imagen = imagenHechizo;
+
+Hechizo.prototype.animacion = [
+    [8, 10], [40, 10], [107, 10], [181, 10], // animación subida del hechizo
+    [266, 10], [375, 10] // animación choque del hechizo
+];
 
 Hechizo.prototype.movimiento = function() {
     this. y -= VELOCIDADhechizo;

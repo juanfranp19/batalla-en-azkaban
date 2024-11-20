@@ -5,7 +5,7 @@ function getRandomX() {
     return numeroRandomEjeX;
 }
 function getRandomVelocidad() {
-    const velocidad = Math.random() * (0.3 - 0.1) + 0.1;
+    const velocidad = Math.random() * (0.2 - 0.05) + 0.05;
     return velocidad;
 }
 // const VELOCIDADdementor = 5;
@@ -44,8 +44,6 @@ function Dementor() {
         let valoresDementor = {
             x: this.x, 
             y: this.y,
-            animacionX: this.animacion[0][0],
-            animacionY: this.animacion[0][1],
             tamañoX: this.tamañoX,
             tamañoY: this.tamañoY,
             velocidad: this.velocidad,
@@ -70,7 +68,7 @@ Dementor.prototype.imagen = imagenDementor;
 Dementor.prototype.movimiento = function(dementor) {
 
     dementor.y += dementor.velocidad;
-    console.log("se mueve");
+    //console.log("se mueve");
 }
 
 
