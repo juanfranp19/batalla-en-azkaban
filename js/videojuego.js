@@ -58,7 +58,42 @@ window.onload = function() {
 
 
 
+    function calcularVidaPlayer() {
+        
 
+        let pIzq = playerPotter.x;
+        let pDer = playerPotter.x + playerPotter.tamañoX;
+        let pUp = playerPotter.y + playerPotter.tamañoY;
+        let pDown = playerPotter.y;
+		
+		let i = 0;
+
+		do {		
+			let nIzq  = Math.round(dementoresLista[i].x,0);
+			let nDer  = Math.round((dementoresLista[i].x + dementoresLista[i].tamañoXCanva),0);
+			let nDown   = Math.round(dementoresLista[i].y,0);
+			let nUp = Math.round((dementoresLista[i].y + dementoresLista[i].tamañoYCanva),0);
+			
+			if ((pDer > nIzq) && 
+                (pIzq < nDer) && 
+                (pUp > nDown) && 
+                (pDown < nUp)) {
+				
+                console.log("han chocado");
+				
+			} else i++;
+		}
+		while  ((i < dementoresLista.length));
+
+
+
+
+
+
+
+
+
+    }
 
 
 
@@ -85,6 +120,9 @@ window.onload = function() {
         playerPotter.pintar(ctx, posicionPlayer);
 
         generarDementor();
+
+        
+        
     }
 
 
@@ -144,6 +182,8 @@ window.onload = function() {
         movimientoDementor();
 
         dibujarDementores();
+
+        
     }
 
     function comprobarDementores() {
@@ -284,6 +324,8 @@ window.onload = function() {
         if (!yUp && !yDown && !xIzquierda && !xDerecha) posicionPlayer = 0;
         
         if (espacio) posicionPlayer = 1;
+
+        calcularVidaPlayer();
     }
 
 

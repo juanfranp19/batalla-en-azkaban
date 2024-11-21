@@ -25,6 +25,10 @@ function HarryPotter() {
 
     this.tamañoX = xTAMAÑOplayer;
     this.tamañoY = yTAMAÑOplayer;
+
+    this.vidas = 3;
+
+    this.vivo = true;
 }
 
 imagenPotter = new Image();
