@@ -15,7 +15,7 @@ function getRandomVelocidad() {
 const xTAMAÑOdementor = 74;
 const yTAMAÑOdementor = 134;
 
-const TOPEsueloDEMENTOR = 400 - yTAMAÑOdementor;
+const TOPEsueloDEMENTOR = 400 - yTAMAÑOdementor/2;
 
 
 let imagenDementor;
@@ -34,29 +34,23 @@ function Dementor() {
     this.tamañoX = xTAMAÑOdementor;
     this.tamañoY = yTAMAÑOdementor;
 
-    this.tamañoXPintar =this.tamañoX/2;
-    this.tamañoYPintar =this.tamañoY/2;
+    this.tamañoXPintar = this.tamañoX/2;
+    this.tamañoYPintar = this.tamañoY/2;
 
     this.velocidad = getRandomVelocidad();
 
-    
-
     this.vivo = true;
-/*
-    this.valores = function() {
-        let valoresDementor = {
-            x: this.x, 
-            y: this.y,
-            tamañoX: this.tamañoX,
-            tamañoY: this.tamañoY,
-            velocidad: this.velocidad,
-            vivo: this.vivo
-        }
-
-        return valoresDementor;
-    }
-*/
 }
+
+imagenDementor = new Image();
+imagenDementor.src = "assets/images/dementor.png";
+Dementor.prototype.imagen = imagenDementor;
+
+Dementor.prototype.animacion = [
+    [8, 1], [83, 0], [166, 1], // negro
+    [8, 145], [85, 143], [167, 144] // gris
+    // el gris eliminalo también que tampoco va a funcionar ni dará tiempo !!!!!!!!!!
+];
 
 Dementor.prototype.pintar = function(ctx_, posicionDementor_) {
 
@@ -71,42 +65,9 @@ Dementor.prototype.pintar = function(ctx_, posicionDementor_) {
         this.tamañoXPintar,
         this.tamañoYPintar
     );
-
 }
-
-
-Dementor.prototype.animacion = [
-
-    [8, 1], [83, 0], [166, 1], // negro
-    [8, 145], [85, 143], [167, 144] // gris
-];
-
-imagenDementor = new Image();
-imagenDementor.src = "assets/images/dementor.png";
-Dementor.prototype.imagen = imagenDementor;
-
-/*
-Dementor.prototype.movimiento = function(dementor) {
-
-    dementor.y += dementor.velocidad;
-    //console.log("se mueve");
-}
-*/
 
 Dementor.prototype.movimiento = function() {
 
     this.y += this.velocidad;
-    //console.log("se mueve");
 }
-
-
-
-
-
-
-
-
-
-
-
-

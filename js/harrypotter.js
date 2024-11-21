@@ -25,18 +25,33 @@ function HarryPotter() {
 
     this.tamañoX = xTAMAÑOplayer;
     this.tamañoY = yTAMAÑOplayer;
-
-    this.animacion = [
-        [2, 192], [48, 192], // arriba
-        [0, 0], [49, 0], // abajo
-        [0, 64], [48, 64], // izquierda
-        [0, 128], [47, 128] // derecha
-    ];
 }
 
 imagenPotter = new Image();
 imagenPotter.src = "assets/images/potter.png";
 HarryPotter.prototype.imagen = imagenPotter;
+
+HarryPotter.prototype.animacion = [
+    [2, 192], [48, 192],// arriba
+    [0, 0], [49, 0],    // abajo
+    [0, 64], [48, 64],  // izquierda
+    [0, 128], [47, 128] // derecha
+];
+
+HarryPotter.prototype.pintar = function(ctx_, posicionPlayer_) {
+
+    ctx_.drawImage(
+        this.imagen,
+        this.animacion[posicionPlayer_][0],
+        this.animacion[posicionPlayer_][1],
+        this.tamañoX,
+        this.tamañoY, 
+        this.x,
+        this.y,
+        this.tamañoX,
+        this.tamañoY
+    );
+}
 
 HarryPotter.prototype.posicionIzquierda = function() {
 
@@ -59,7 +74,6 @@ HarryPotter.prototype.posicionDerecha = function() {
 HarryPotter.prototype.posicionUp = function() {
 
     this.y -= this.velocidadY;
-
 
     if (this.y < yTOPEUPplayer) {
         this.y = yTOPEUPplayer;

@@ -8,13 +8,12 @@ window.onload = function() {
     let posicionPlayer = 0;
     let posicionInicialPlayer;
 
-    let hechizoPlayer;
+    let hechizo;
     let xHechizo, yHechizo;
     let posicionHechizo = 0;
     let hechizoLanzado = false;
     let hechizoLista = [];
-    let hechizo;      
-
+         
     let dementor;
     let posicionDementor = 0;
     let posicionInicialDementor = 0;
@@ -74,37 +73,6 @@ window.onload = function() {
 
 
 
-
-
-
-    function dibujarPlayer() {
-        ctx.drawImage(
-            playerPotter.imagen,
-            playerPotter.animacion[posicionPlayer][0],
-            playerPotter.animacion[posicionPlayer][1],
-            playerPotter.tamañoX,
-            playerPotter.tamañoY, 
-            playerPotter.x,
-            playerPotter.y,
-            playerPotter.tamañoX,
-            playerPotter.tamañoY
-        );
-    }
-
-    function dibujarHechizo() {
-        ctx.drawImage(
-            Hechizo.prototype.imagen,
-            Hechizo.prototype.animacion[posicionHechizo][0],
-            Hechizo.prototype.animacion[posicionHechizo][1],
-            hechizo.tamañoX, 
-            hechizo.tamañoY,
-            hechizo.x, 
-            hechizo.y,
-            hechizo.tamañoX, 
-            hechizo.tamañoY 
-        );
-    }
-    
     
 
 
@@ -114,7 +82,7 @@ window.onload = function() {
 
         comandos();
         
-        dibujarPlayer();
+        playerPotter.pintar(ctx, posicionPlayer);
 
         generarDementor();
     }
@@ -195,7 +163,6 @@ window.onload = function() {
 
             dementor = dementoresLista[i];
 
-            
             if (dementor.y >= TOPEsueloDEMENTOR || !dementor.vivo) {
 
                 dementoresLista.splice(i, 1);
@@ -203,11 +170,6 @@ window.onload = function() {
 
             }
 
-            
-            
-            //if (dementor.vivo) 
-            
-            //Dementor.prototype.movimiento(dementor);
             dementor.movimiento();
         }
     }
@@ -218,15 +180,7 @@ window.onload = function() {
 
             dementor = dementoresLista[i];   
 
-            
-            //console.log(posicionDementor);
-            
-            //console.log(Dementor.prototype.animacion[0][0]);
-
-
             dementor.pintar(ctx, posicionDementor);
-
-            
         }
     }
 
@@ -237,12 +191,6 @@ window.onload = function() {
             dementor = dementoresLista[i];
 
             posicionInicialDementor = 0;
-
-            //console.log(dementor.y);
-
-            //if (dementor.y >= 170) posicionInicialDementor = 3;
-
-            //console.log(dementor.animacion[0][0]);
 
             posicionDementor = posicionInicialDementor + ((posicionDementor + 1) % 3);
         }
@@ -338,35 +286,41 @@ window.onload = function() {
         if (espacio) posicionPlayer = 1;
     }
 
-    function generarHechizo() {
 
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function generarHechizo() {
 
         if (hechizoLista.length < 1) {
 
             xHechizo = playerPotter.x;
             yHechizo = playerPotter.y
 
-            hechizoPlayer = new Hechizo(xHechizo, yHechizo);
-
-            hechizoLista.push(hechizoPlayer.valores());
-            
+            hechizo = new Hechizo(xHechizo, yHechizo);
+            hechizoLista.push(hechizo);
+            hechizo = hechizoLista[0];
 
             idAnimacionHechizo = setInterval(generarAnimacionHechizo, 1000/80); // id incrementado poco a poco la velocidad
         }
-        
     }
 
     function generarAnimacionHechizo() {
 
         actualizarValoresHechizoLista();
 
-        hechizoPlayer.movimiento();
-        
-        hechizo = hechizoLista[0];
-        dibujarHechizo();
-
-        
+        hechizo.movimiento();
 
         posicionHechizo = 0; 
 
@@ -382,7 +336,8 @@ window.onload = function() {
             }
         }
 
-        hechizoPlayer.tamañoImagen(posicionHechizo);
+        hechizo.pintar(ctx, posicionHechizo);
+        hechizo.tamañoImagen(posicionHechizo);
         
         
 
@@ -393,7 +348,7 @@ window.onload = function() {
 
             
 
-            hechizoPlayer.haChocado = true;
+            hechizo.haChocado = true;
 
             cerrarAnimacionHechizo();
             
@@ -405,6 +360,9 @@ window.onload = function() {
         // if () {
         //     calcular las posiciones Y de Hechizo para calcular su animación
         // }
+        /**
+         * YA ESTÁN CALCULADAS
+         */
 
 
     }
@@ -413,32 +371,16 @@ window.onload = function() {
 
         hechizoLista.pop();
 
-        hechizoLista.push(hechizoPlayer.valores());
-
-        // borrar
-        //
-        //console.table(hechizoLista);
-        //console.log(hechizoLista[0].y);
+        hechizoLista.push(hechizo);
     }
 
     function cerrarAnimacionHechizo() {
 
         clearInterval(idAnimacionHechizo);
 
-
-
-        // ctxHechizo.clearRect(
-        //     hechizoLista[0].x, 
-        //     hechizoLista[0].y,
-        //     hechizoLista[0].tamañoX, 
-        //     hechizoLista[0].tamañoY
-        // );
-
         hechizoLista.pop();
 
         console.log("cierre animacion del hechizo");
-
-        // console.log(object);
     }
 
 
@@ -462,7 +404,9 @@ window.onload = function() {
 
 
 
-
+    /**
+     *  TECLAS
+     */
 
 
     function comandos() {
@@ -517,7 +461,9 @@ window.onload = function() {
 
 
 
-
+    /**
+     * CANVAS
+     */
 
 
     function cargarPartida() {
@@ -537,7 +483,9 @@ window.onload = function() {
 
 
 
-
+    /**
+     *  CÓDIGO PRINCIPAL
+     */
 
     
 
