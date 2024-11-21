@@ -1,7 +1,7 @@
 // Clase Dementor
 
 function getRandomX() {
-    const numeroRandomEjeX = Math.random() * (600 - xTAMAÑOdementor);
+    const numeroRandomEjeX = Math.random() * (600 - xTAMAÑOdementorImagen);
     return numeroRandomEjeX;
 }
 function getRandomVelocidad() {
@@ -12,10 +12,13 @@ function getRandomVelocidad() {
 
 
 
-const xTAMAÑOdementor = 74;
-const yTAMAÑOdementor = 134;
+const xTAMAÑOdementorImagen = 74;
+const yTAMAÑOdementorImagen = 134;
 
-const TOPEsueloDEMENTOR = 400 - yTAMAÑOdementor/2;
+const xTAMAÑOdementorCanva = xTAMAÑOdementorImagen / 2;
+const yTAMAÑOdementorCanva = yTAMAÑOdementorImagen / 2;
+
+const TOPEsueloDEMENTOR = 400 - yTAMAÑOdementorImagen/2;
 
 
 let imagenDementor;
@@ -29,13 +32,13 @@ let NUMEROdementores = 10;
 function Dementor() {
 
     this.x = getRandomX();
-    this.y = 0 - yTAMAÑOdementor;
+    this.y = 0 - yTAMAÑOdementorImagen;
 
-    this.tamañoX = xTAMAÑOdementor;
-    this.tamañoY = yTAMAÑOdementor;
+    this.tamañoXImagen = xTAMAÑOdementorImagen;
+    this.tamañoYImagen = yTAMAÑOdementorImagen;
 
-    this.tamañoXPintar = this.tamañoX/2;
-    this.tamañoYPintar = this.tamañoY/2;
+    this.tamañoXCanva = xTAMAÑOdementorCanva;
+    this.tamañoYCanva = yTAMAÑOdementorCanva;
 
     this.velocidad = getRandomVelocidad();
 
@@ -49,7 +52,6 @@ Dementor.prototype.imagen = imagenDementor;
 Dementor.prototype.animacion = [
     [8, 1], [83, 0], [166, 1], // negro
     [8, 145], [85, 143], [167, 144] // gris
-    // el gris eliminalo también que tampoco va a funcionar ni dará tiempo !!!!!!!!!!
 ];
 
 Dementor.prototype.pintar = function(ctx_, posicionDementor_) {
@@ -58,12 +60,12 @@ Dementor.prototype.pintar = function(ctx_, posicionDementor_) {
         this.imagen,
         this.animacion[posicionDementor_][0],
         this.animacion[posicionDementor_][1],
-        this.tamañoX, 
-        this.tamañoY,
+        this.tamañoXImagen, 
+        this.tamañoYImagen,
         this.x,
         this.y,
-        this.tamañoXPintar,
-        this.tamañoYPintar
+        this.tamañoXCanva,
+        this.tamañoYCanva
     );
 }
 
