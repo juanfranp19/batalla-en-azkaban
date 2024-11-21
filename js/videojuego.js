@@ -165,7 +165,7 @@ window.onload = function() {
         for (let i = 0; i < NUMEROdementores; i++) {
 
             let dementor = new Dementor();
-            dementoresLista.push(dementor.valores());
+            dementoresLista.push(dementor);
         }
     }
 
@@ -207,7 +207,8 @@ window.onload = function() {
             
             //if (dementor.vivo) 
             
-            Dementor.prototype.movimiento(dementor);
+            //Dementor.prototype.movimiento(dementor);
+            dementor.movimiento();
         }
     }
 
@@ -222,17 +223,10 @@ window.onload = function() {
             
             //console.log(Dementor.prototype.animacion[0][0]);
 
-            ctx.drawImage(
-                Dementor.prototype.imagen,
-                Dementor.prototype.animacion[posicionDementor][0],
-                Dementor.prototype.animacion[posicionDementor][1],
-                dementor.tamañoX, 
-                dementor.tamañoY,
-                dementor.x,
-                dementor.y,
-                dementor.tamañoX,
-                dementor.tamañoY
-            );
+
+            dementor.pintar(ctx, posicionDementor);
+
+            
         }
     }
 

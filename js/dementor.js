@@ -34,12 +34,15 @@ function Dementor() {
     this.tamañoX = xTAMAÑOdementor;
     this.tamañoY = yTAMAÑOdementor;
 
+    this.tamañoXPintar =this.tamañoX/2;
+    this.tamañoYPintar =this.tamañoY/2;
+
     this.velocidad = getRandomVelocidad();
 
     
 
     this.vivo = true;
-
+/*
     this.valores = function() {
         let valoresDementor = {
             x: this.x, 
@@ -52,8 +55,25 @@ function Dementor() {
 
         return valoresDementor;
     }
+*/
+}
+
+Dementor.prototype.pintar = function(ctx_, posicionDementor_) {
+
+    ctx_.drawImage(
+        this.imagen,
+        this.animacion[posicionDementor_][0],
+        this.animacion[posicionDementor_][1],
+        this.tamañoX, 
+        this.tamañoY,
+        this.x,
+        this.y,
+        this.tamañoXPintar,
+        this.tamañoYPintar
+    );
 
 }
+
 
 Dementor.prototype.animacion = [
 
@@ -65,12 +85,19 @@ imagenDementor = new Image();
 imagenDementor.src = "assets/images/dementor.png";
 Dementor.prototype.imagen = imagenDementor;
 
+/*
 Dementor.prototype.movimiento = function(dementor) {
 
     dementor.y += dementor.velocidad;
     //console.log("se mueve");
 }
+*/
 
+Dementor.prototype.movimiento = function() {
+
+    this.y += this.velocidad;
+    //console.log("se mueve");
+}
 
 
 
