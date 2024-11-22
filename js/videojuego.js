@@ -60,6 +60,7 @@ window.onload = function() {
 
     function calcularVidaPlayer() {
         
+        let playerPierde = false;
 
         let pIzq = playerPotter.x;
         let pDer = playerPotter.x + playerPotter.tamañoX;
@@ -73,25 +74,19 @@ window.onload = function() {
 			let nDer  = Math.round((dementoresLista[i].x + dementoresLista[i].tamañoXCanva),0);
 			let nDown   = Math.round(dementoresLista[i].y,0);
 			let nUp = Math.round((dementoresLista[i].y + dementoresLista[i].tamañoYCanva),0);
-			
+
 			if ((pDer > nIzq) && 
                 (pIzq < nDer) && 
                 (pUp > nDown) && 
                 (pDown < nUp)) {
 				
                 console.log("han chocado");
+                
+                playerPierde = true;
 				
 			} else i++;
 		}
-		while  ((i < dementoresLista.length));
-
-
-
-
-
-
-
-
+		while  ((i < dementoresLista.length) && (!playerPierde));
 
     }
 
