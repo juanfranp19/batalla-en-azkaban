@@ -83,6 +83,23 @@ window.onload = function() {
                 console.log("han chocado");
                 
                 playerPierde = true;
+                playerPotter.vidas -= 1;
+
+                console.log(playerPotter.vidas);
+
+                clearInterval(idIntervalDementor);
+                clearInterval(idAnimacionDementor);
+
+                dementoresLista.splice(0, dementoresLista.length);
+
+                if (playerPotter.vidas === 0) {
+                    clearInterval(idAnimacionCanvas);
+                    clearInterval(idAnimacionPlayer);
+                    clearInterval(idAnimacionHechizo);
+                    console.log("fin del juego");
+                }
+
+                
 				
 			} else i++;
 		}

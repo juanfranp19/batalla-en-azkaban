@@ -1,15 +1,42 @@
 body {
+    
     background-image: url(assets/images/fondoHtml.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
+    
+    /*
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;*/
+
+    background-color: #004d00;
+    
 }
+
+div.container {
+    flex: 1 auto;
+    padding-bottom: 40px;
+
+    /*background-color: aqua;*/
+    
+}
+div.canvas {
+    flex-grow: 1;
+    /*background-color: blue;*/
+}
+div.records {
+    flex-grow: 1;
+    /*background-color: red;*/
+}
+
 
 body div {
     text-align: center;
     justify-content: center;
-    padding-top: 20px;
+
 }
 
 #myCanvas {
@@ -22,15 +49,18 @@ body div {
     /* display: none; */
 }
 
+div#vidas img {
+    width: 70px;
+    padding: 0;
+}
 
 
 
-
-
+/*
 .container {
     padding: 40px;
     border-radius: 10px;
-}
+}*/
 
 h1 {
     font-size: 2.5em;
