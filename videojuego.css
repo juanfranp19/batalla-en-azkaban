@@ -17,12 +17,35 @@ body {
 }
 
 div.container {
-    flex: 1 auto;
-    padding-bottom: 40px;
-
-    /*background-color: aqua;*/
+    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-bottom: 20px;
     
 }
+
+div.start {
+    flex: 1 ;
+}
+div.lore {
+    flex: 1;
+    text-align:left;
+    
+    padding-right: 50px;
+    text-align: justify;
+    
+}
+
+div.lore p {
+    background-color: blueviolet;
+    padding: 40px;
+    background-color: rgba(0, 0, 0, 0.3); /* Fondo translúcido negro */
+    border-radius: 15px; 
+    color: white; 
+}
+
 div.canvas {
     flex-grow: 1;
     /*background-color: blue;*/
