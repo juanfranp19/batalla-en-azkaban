@@ -85,6 +85,8 @@ window.onload = function() {
                 playerPierde = true;
                 playerPotter.vidas -= 1;
 
+                vidasCorazones(playerPotter.vidas);
+
                 console.log(playerPotter.vidas);
 
                 clearInterval(idIntervalDementor);
