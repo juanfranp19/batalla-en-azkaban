@@ -6,8 +6,8 @@ function vidasCorazones(vidasPlayer) {
     imagenSinVida.src = "assets/images/sinvida.png";
     imagenSinVida.alt = "-1 vida";
 
-    console.log(imagenSinVida);
-    console.log(divVidas[2]);
+    //console.log(imagenSinVida);
+    //console.log(divVidas[2]);
 
     if (vidasPlayer === 2) {
         divVidas.replaceChild(imagenSinVida, divVidas.getElementsByTagName("img")[2]);
