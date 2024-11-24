@@ -11,47 +11,57 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;*/
-
-    background-color: #004d00;
+/* 
+    background-color: #004d00; */
     
 }
 
 div.container {
-    
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    /* background-color: rgb(168, 253, 156); */
+    /* display: flex;
+    flex-direction: column;
+    flex-wrap: wrap; */
     justify-content: space-around;
     padding-bottom: 20px;
     
 }
 
 div.start {
-    flex: 1 ;
+    /* background-color: rgb(247, 24, 191); */
+    /* flex: 1;
+    min-width: 700px; */
+    /* padding: 50px; */
 }
 div.lore {
-    flex: 1;
+    /* background-color: rgb(168, 253, 156); */
+    /* flex: 1; */
     text-align:left;
     
+    
+    
     padding-right: 50px;
+    padding-left: 50px;
     text-align: justify;
     
 }
 
 div.lore p {
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
     padding: 40px;
-    background-color: rgba(0, 0, 0, 0.3); /* Fondo translúcido negro */
+    background-color: rgba(0, 0, 0, 0.3);
     border-radius: 15px; 
+    /* min-width:500px; */
     color: white; 
 }
 
 div.canvas {
-    flex-grow: 1;
+    flex: 1;
+    /* background-color: blueviolet; */
     /*background-color: blue;*/
 }
 div.records {
-    flex-grow: 1;
+    
+    flex: 1;
     /*background-color: red;*/
 }
 
@@ -73,7 +83,7 @@ body div {
 }
 
 div#vidas img {
-    width: 70px;
+    width: 40px;
     padding: 0;
 }
 
@@ -125,6 +135,7 @@ h1 {
     width: 100%;
     max-width: 300px;
     transition: border-color 0.3s ease;
+    display: inline;
 }
 
 #nombrePlayer:focus {
