@@ -24,6 +24,11 @@ window.onload = function() {
     let pMensajePlayer;
     let nodePMensajePlayer;
 
+    const divVidas = document.getElementById("vidas");
+    let imagenSinVida;
+    let imagenConVida;
+    const NUMEROVIDAS = 3;
+
 
     function start() {
     
@@ -34,26 +39,56 @@ window.onload = function() {
     
         botonNuevaPartida.disabled = true;
     
-        if (NOMBREJUGADOR) {
-            
+        if (NOMBREJUGADOR) { 
             nodePMensajePlayer = document.createTextNode("¡Hola, " + NOMBREJUGADOR + "!");
-            pMensajePlayer.appendChild(nodePMensajePlayer);
-    
-            pMensajePlayer.style.display = 'block';
-            
-            inputNombrePlayer.style.display = 'none';
-    
+
         } else {
-            
             nodePMensajePlayer = document.createTextNode("¡Hola, jugador!");
-            pMensajePlayer.appendChild(nodePMensajePlayer);
+        }
+
+        pMensajePlayer.appendChild(nodePMensajePlayer);
     
-            pMensajePlayer.style.display = 'block';
-            
-            inputNombrePlayer.style.display = 'none';
+        pMensajePlayer.style.display = 'block';
+        inputNombrePlayer.style.display = 'none';
+
+        for (let i = 0; i < NUMEROVIDAS; i++) {
+            imagenConVida = document.createElement("img");
+            imagenConVida.src = "assets/images/vida.png";
+            imagenConVida.alt = "vida";
+
+            divVidas.appendChild(imagenConVida);
         }
     
         cargarPartida();
+    }
+
+    function end() {
+        clearInterval(idAnimacionCanvas);
+        clearInterval(idAnimacionPlayer);
+        console.log("fin del juego");
+
+        //let imagenConVida = 
+
+        
+        
+        //console.log(imagenConVida);
+        
+        // for (let i = 0; i < NUMEROVIDAS; i++) {
+        //     // imagenConVida = document.createElement("img");
+        //     // imagenConVida.src = "assets/images/vida.png";
+        //     // imagenConVida.alt = "vida";
+
+            
+        // }
+        while (divVidas.firstChild) {
+            divVidas.removeChild(divVidas.firstChild);
+        }
+
+
+        pMensajePlayer.removeChild(nodePMensajePlayer);
+        botonNuevaPartida.disabled = false;
+        pMensajePlayer.style.display = 'none';
+        inputNombrePlayer.style.display = 'inline';
     }
 
 
@@ -85,7 +120,7 @@ window.onload = function() {
                 playerPierde = true;
                 playerPotter.vidas -= 1;
 
-                vidasCorazones(playerPotter.vidas);
+                vidasCorazonesHtml();
 
                 console.log(playerPotter.vidas);
 
@@ -95,10 +130,7 @@ window.onload = function() {
                 dementoresLista.splice(0, dementoresLista.length);
 
                 if (playerPotter.vidas === 0) {
-                    clearInterval(idAnimacionCanvas);
-                    clearInterval(idAnimacionPlayer);
-                    clearInterval(idAnimacionHechizo);
-                    console.log("fin del juego");
+                    end();
                 }
 
                 
@@ -109,7 +141,39 @@ window.onload = function() {
 
     }
 
+    function vidasCorazonesHtml() {
 
+        //divVidas = document.getElementById("vidas");
+    
+        imagenSinVida = document.createElement("img");
+        imagenSinVida.src = "assets/images/sinvida.png";
+        imagenSinVida.alt = "-1 vida";
+    
+        //console.log(imagenSinVida);
+        //console.log(divVidas[2]);
+
+        for (let i = 0; i < NUMEROVIDAS; i++) {
+
+            if (playerPotter.vidas === i) {
+                divVidas.replaceChild(imagenSinVida, divVidas.getElementsByTagName("img")[i]);
+            }
+        }
+    
+        /*
+        if (playerPotter.vidas === 2) {
+            divVidas.replaceChild(imagenSinVida, divVidas.getElementsByTagName("img")[2]);
+        }
+    
+        if (playerPotter.vidas === 1) {
+            divVidas.replaceChild(imagenSinVida, divVidas.getElementsByTagName("img")[1]);
+        }
+    
+        if (playerPotter.vidas === 0) {
+            divVidas.replaceChild(imagenSinVida, divVidas.getElementsByTagName("img")[0]);
+        }
+        */
+    }
+    
 
 
 
