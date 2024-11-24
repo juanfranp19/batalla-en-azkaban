@@ -26,6 +26,8 @@ function HarryPotter() {
     this.tamañoX = xTAMAÑOplayer;
     this.tamañoY = yTAMAÑOplayer;
 
+    this.dementoresDerrotados = 0;
+
     this.vidas = 3;
 
     this.vivo = true;
