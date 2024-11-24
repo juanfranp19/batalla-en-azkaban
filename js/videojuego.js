@@ -18,6 +18,7 @@ window.onload = function() {
     let posicionDementor = 0;
     let posicionInicialDementor = 0;
     let dementoresLista = [];
+    let dementorDerrotado;
 
     let botonNuevaPartida;
     let inputNombrePlayer;
@@ -95,7 +96,7 @@ window.onload = function() {
 
     function calcularVidaPlayer() {
         
-        let playerPierde = false;
+        let pierdeVida = false;
 
         let pIzq = playerPotter.x;
         let pDer = playerPotter.x + playerPotter.tamañoX;
@@ -105,19 +106,19 @@ window.onload = function() {
 		let i = 0;
 
 		do {		
-			let nIzq  = Math.round(dementoresLista[i].x,0);
-			let nDer  = Math.round((dementoresLista[i].x + dementoresLista[i].tamañoXCanva),0);
-			let nDown   = Math.round(dementoresLista[i].y,0);
-			let nUp = Math.round((dementoresLista[i].y + dementoresLista[i].tamañoYCanva),0);
+			let dIzq  = Math.round(dementoresLista[i].x,0);
+			let dDer  = Math.round((dementoresLista[i].x + dementoresLista[i].tamañoXCanva),0);
+			let dUp = Math.round((dementoresLista[i].y + dementoresLista[i].tamañoYCanva),0);
+            let dDown = Math.round(dementoresLista[i].y,0);
 
-			if ((pDer > nIzq) && 
-                (pIzq < nDer) && 
-                (pUp > nDown) && 
-                (pDown < nUp)) {
+			if ((pDer > dIzq) && 
+                (pIzq < dDer) && 
+                (pUp > dDown) && 
+                (pDown < dUp)) {
 				
                 console.log("han chocado");
                 
-                playerPierde = true;
+                pierdeVida = true;
                 playerPotter.vidas -= 1;
 
                 vidasCorazonesHtml();
@@ -137,7 +138,7 @@ window.onload = function() {
 				
 			} else i++;
 		}
-		while  ((i < dementoresLista.length) && (!playerPierde));
+		while ((i < dementoresLista.length) && (!pierdeVida));
 
     }
 
@@ -271,7 +272,7 @@ window.onload = function() {
         if (dementoresLista.length === 0) {
             clearInterval(idIntervalDementor);
             clearInterval(idAnimacionDementor);
-            console.log("fin animación dementor");
+            console.log("fin animación dementores");
         }
     }
 
@@ -281,7 +282,9 @@ window.onload = function() {
 
             dementor = dementoresLista[i];
 
-            if (dementor.y >= TOPEsueloDEMENTOR || !dementor.vivo) {
+            //if (hechizo !== undefined) calcularDementoresDerrotados();
+
+            if (dementor.y >= TOPEsueloDEMENTOR) {
 
                 dementoresLista.splice(i, 1);
                 console.log("dementores: " + dementoresLista.length);
@@ -341,8 +344,44 @@ window.onload = function() {
 
 
 
+    function calcularDementoresDerrotados() {
 
-    
+        dementorDerrotado = false;
+
+        let hIzq = hechizo.x;
+        let hDer = hechizo.x + hechizo.tamañoXCanva;
+        let hUp = hechizo.y + hechizo.tamañoYCanva;
+        let hDown = hechizo.y;
+
+        let i = 0;
+
+        do {
+            let dIzq  = Math.round(dementoresLista[i].x,0);
+			let dDer  = Math.round((dementoresLista[i].x + dementoresLista[i].tamañoXCanva),0);
+			let dUp = Math.round((dementoresLista[i].y + dementoresLista[i].tamañoYCanva),0);
+            let dDown = Math.round(dementoresLista[i].y,0);
+
+            if ((hDer > dIzq) &&
+                (hIzq < dDer) &&
+                (hUp > dDown) &&
+                (hDown < dUp)) {
+
+                console.log("dementor muerto");
+
+                dementoresLista.splice(i, 1);
+                console.log("dementores: " + dementoresLista.length);
+
+                dementorDerrotado = true;
+                dementor.vivo = false;
+                playerPotter.dementoresDerrotados += 1;
+
+                console.log(playerPotter.dementoresDerrotados);
+
+            } else i++;
+
+        }
+        while ((i < dementoresLista.length) &&(!dementorDerrotado));
+    }
 
 
 
@@ -444,7 +483,7 @@ window.onload = function() {
 
         posicionHechizo = 0; 
 
-        if (hechizo.y < 230) {
+        if (hechizo.y < 200) {
             posicionHechizo = 1;
 
             if (hechizo.y < 150) {
@@ -455,16 +494,14 @@ window.onload = function() {
                 }
             }
         }
-
+        
         hechizo.pintar(ctx, posicionHechizo);
         hechizo.tamañoImagen(posicionHechizo);
-        
-        
 
+        calcularDementoresDerrotados();
         
-
         // (hechizoPlayer.y + hechizoPlayer.tamañoY)
-        if ( hechizoLista[0].y <= 0 /*|| choca*/) {
+        if ( hechizoLista[0].y <= 0 || dementorDerrotado) {
 
             
 
@@ -473,18 +510,6 @@ window.onload = function() {
             cerrarAnimacionHechizo();
             
         }
-
-        // borrar
-        //
-        //
-        // if () {
-        //     calcular las posiciones Y de Hechizo para calcular su animación
-        // }
-        /**
-         * YA ESTÁN CALCULADAS
-         */
-
-
     }
 
     function actualizarValoresHechizoLista() {
