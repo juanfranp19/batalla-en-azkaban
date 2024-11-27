@@ -24,6 +24,7 @@ window.onload = function() {
     let inputNombrePlayer;
     let pMensajePlayer;
     let nodePMensajePlayer;
+    let lore;
 
     const divVidas = document.getElementById("vidas");
     let imagenSinVida;
@@ -35,6 +36,9 @@ window.onload = function() {
     
         inputNombrePlayer = document.getElementById("nombrePlayer");
         pMensajePlayer = document.getElementById("mensajePlayer");
+        lore = document.getElementById("texto");
+
+        console.log(lore);
     
         const NOMBREJUGADOR = inputNombrePlayer.value;
     
@@ -51,6 +55,7 @@ window.onload = function() {
     
         pMensajePlayer.style.display = 'block';
         inputNombrePlayer.style.display = 'none';
+        lore.style.display = 'none';
 
         for (let i = 0; i < NUMEROVIDAS; i++) {
             imagenConVida = document.createElement("img");
@@ -90,6 +95,7 @@ window.onload = function() {
         botonNuevaPartida.disabled = false;
         pMensajePlayer.style.display = 'none';
         inputNombrePlayer.style.display = 'inline';
+        lore.style.display = 'block';
     }
 
 
