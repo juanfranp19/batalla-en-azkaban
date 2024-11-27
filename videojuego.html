@@ -16,44 +16,46 @@
     </head>
     <body>
 
-        <div class="container">
+        <header>
             
-            <div class="lore">
+            <div class="intro">
                 <h1>Bienvenido al juego</h1>
-                <p>
-                Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto 
-                de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una distribución 
-                más o menos normal de las letras, al contrario de usar textos como por ejemplo "Contenido aquí, contenido 
-                aquí". Estos textos hacen parecerlo un español que se puede leer. Muchos paquetes de autoedición y editores 
-                de páginas web usan el Lorem Ipsum como su texto por defecto, y al hacer una búsqueda de "Lorem Ipsum" va 
-                a dar por resultado muchos sitios web que usan este texto si se encuentran en estado de desarrollo. Muchas 
-                versiones han evolucionado a través de los años, algunas veces por accidente, otras veces a propósito (por 
-                ejemplo insertándole humor y cosas por el estilo).
+                
+                <p id="texto">
+                    Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto 
+                    de un sitio mientras que mira su diseño. El punto de usar Lorem Ipsum es que tiene una distribución 
+                    más o menos normal de las letras, al contrario de usar textos como por ejemplo "Contenido aquí, contenido 
+                    aquí". Estos textos hacen parecerlo un español que se puede leer. Muchos paquetes de autoedición y editores 
+                    de páginas web usan el Lorem Ipsum como su texto por defecto, y al hacer una búsqueda de "Lorem Ipsum" va 
+                    a dar por resultado muchos sitios web que usan este texto si se encuentran en estado de desarrollo. Muchas 
+                    versiones han evolucionado a través de los años, algunas veces por accidente, otras veces a propósito (por 
+                    ejemplo insertándole humor y cosas por el estilo).
                 </p>
             </div>
+
             <div class="start">
-                
                 <input type="text" id="nombrePlayer" placeholder="Tu nombre"> &nbsp;
                 <input type="submit" id="nuevaPartida" value="NUEVA PARTIDA">
 
                 <p id="mensajePlayer"></p>
             </div>
-            
-        </div>
 
-        <div class="canvas">
-            <div id="vidas">
-                <!--
-                <img src="assets/images/vida.png" alt="vida">
-                <img src="assets/images/vida.png" alt="vida">
-                <img src="assets/images/vida.png" alt="vida">
-                -->
+        </header>
+
+        <main>
+            <div class="canvas">
+                <div id="vidas">
+                    <!--
+                    <img src="assets/images/vida.png" alt="vida">
+                    <img src="assets/images/vida.png" alt="vida">
+                    <img src="assets/images/vida.png" alt="vida">
+                    -->
+                </div>
+                <canvas id="myCanvas" width="600" height="400" disabled></canvas>
             </div>
-            <canvas id="myCanvas" width="600" height="400" disabled></canvas>
-        </div>
-
-        <div class="records">
-            <h1>Records</h1>
-        </div>
+            <div class="records">
+                <h1>Records</h1>
+            </div>
+        </main>
     </body>
 </html>

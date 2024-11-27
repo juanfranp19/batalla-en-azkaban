@@ -1,99 +1,15 @@
-body {
-    
+body {  
     background-image: url(assets/images/fondoHtml.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    
-    /*
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;*/
-/* 
-    background-color: #004d00; */
-    
 }
-
-div.container {
-    /* background-color: rgb(168, 253, 156); */
-    /* display: flex;
-    flex-direction: column;
-    flex-wrap: wrap; */
-    justify-content: space-around;
-    padding-bottom: 20px;
-    
-}
-
-div.start {
-    /* background-color: rgb(247, 24, 191); */
-    /* flex: 1;
-    min-width: 700px; */
-    /* padding: 50px; */
-}
-div.lore {
-    /* background-color: rgb(168, 253, 156); */
-    /* flex: 1; */
-    text-align:left;
-    
-    
-    
-    padding-right: 50px;
-    padding-left: 50px;
-    text-align: justify;
-    
-}
-
-div.lore p {
-    /* background-color: blueviolet; */
-    padding: 40px;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 15px; 
-    /* min-width:500px; */
-    color: white; 
-}
-
-div.canvas {
-    flex: 1;
-    /* background-color: blueviolet; */
-    /*background-color: blue;*/
-}
-div.records {
-    
-    flex: 1;
-    /*background-color: red;*/
-}
-
 
 body div {
     text-align: center;
     justify-content: center;
-
 }
-
-#myCanvas {
-    border: solid 2px #238d65;
-    border-radius: 15px;
-    margin: 20px;
-    background-image: url(assets/images/fondoCanvas.jpg);
-
-    display: initial;
-    /* display: none; */
-}
-
-div#vidas img {
-    width: 40px;
-    padding: 0;
-}
-
-
-
-/*
-.container {
-    padding: 40px;
-    border-radius: 10px;
-}*/
 
 h1 {
     font-size: 2.5em;
@@ -102,76 +18,106 @@ h1 {
 }
 
 
-#nuevaPartida {
-    background-color: #238d65; 
-    color: #e3fff4; 
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.2em;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-#nuevaPartida:hover {
-    background-color: #004d00; 
-    transform: scale(1.1); 
-}
-
-#nuevaPartida:disabled {
-    background-color: #333;
-    cursor: not-allowed;
-}
-
-/* Input text style */
-#nombrePlayer {
-    background-color: #333; /* Fondo oscuro para el input */
-    color: #238d65; /* Texto verde brillante */
-    border: 2px solid #238d65; /* Borde verde brillante */
-    padding: 12px 20px;
-    font-size: 1.2em;
-    border-radius: 8px;
-    margin-top: 20px;
-    width: 100%;
-    max-width: 300px;
-    transition: border-color 0.3s ease;
-    display: inline;
-}
-
-#nombrePlayer:focus {
-    outline: none;
-    border-color: #238d65; /* Borde verde claro al hacer foco */
-    background-color: #2b2b2b; /* Fondo oscuro ligeramente diferente cuando está en foco */
+/* header */
+header {
+    justify-content: space-around;
+    padding-bottom: 20px;
 }
 
 
+    /* intro */
+        .intro {
+            text-align:left;
+            padding-right: 50px;
+            padding-left: 50px;
+            text-align: justify;
+        }
+
+        #texto {
+            padding: 40px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            color: white;
+        }
 
 
+    /* start */
+
+        /* nombre player */
+            #nombrePlayer {
+                background-color: #333; 
+                color: #238d65;
+                border: 2px solid #238d65;
+                padding: 12px 20px;
+                font-size: 1.2em;
+                border-radius: 8px;
+                margin-top: 20px;
+                width: 100%;
+                max-width: 300px;
+                transition: border-color 0.3s ease;
+                display: inline;
+            }
+            
+            #nombrePlayer:focus {
+                outline: none;
+                border-color: #238d65;
+                background-color: #2b2b2b;
+            }
 
 
+        /* nueva partida */
+            #nuevaPartida {
+                background-color: #238d65;
+                color: #e3fff4;
+                border: none;
+                padding: 15px 30px;
+                font-size: 1.2em;
+                cursor: pointer;
+                border-radius: 8px;
+                transition: background-color 0.3s ease, transform 0.3s ease;
+            }
+            
+            #nuevaPartida:hover {
+                background-color: #004d00; 
+                transform: scale(1.1); 
+            }
+            
+            #nuevaPartida:disabled {
+                background-color: #333;
+                cursor: not-allowed;
+            }
 
 
+        /* mensaje player */
+            #mensajePlayer {
+                font-size: 1.5em;
+                color: #238d65; 
+                margin-top: 20px;
+                display: none; 
+            }
 
 
+/* main */
+.canvas {
+    flex: 1;
+}
 
-
-
-
-#mensajePlayer {
-    font-size: 1.5em;
-    color: #238d65; 
-    margin-top: 20px;
-    display: none; 
+.records {
+    flex: 1;
 }
 
 
+    /* canvas */
+        #vidas img {
+            width: 40px;
+            padding: 0;
+        }
 
-
-
-
-
-
-
-
-
+        #myCanvas {
+            border: solid 2px #238d65;
+            border-radius: 15px;
+            margin: 20px;
+            background-image: url(assets/images/fondoCanvas.jpg);
+            display: initial;
+        }
 
