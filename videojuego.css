@@ -27,7 +27,6 @@ header {
 
     /* intro */
         .intro {
-            text-align:left;
             padding-right: 50px;
             padding-left: 50px;
             text-align: justify;
@@ -111,6 +110,27 @@ header {
         #vidas img {
             width: 40px;
             padding: 0;
+        }
+
+        #info {
+            display: flex;
+            justify-content: center;
+            
+        }
+
+        #info #spans {
+            width: 600px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+
+        #info #spans span {
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
+            border-radius: 15px;
+            padding: 5px 15px;
+            display: none;
         }
 
         #myCanvas {

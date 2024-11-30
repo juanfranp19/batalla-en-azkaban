@@ -27,6 +27,9 @@ window.onload = function() {
     let lore;
 
     const divVidas = document.getElementById("vidas");
+    const spanDementoresDerrotados = document.getElementById("dementoresDerrotados");
+    const spanNivel = document.getElementById("nivel");
+
     let imagenSinVida;
     let imagenConVida;
     const NUMEROVIDAS = 3;
@@ -56,6 +59,10 @@ window.onload = function() {
         pMensajePlayer.style.display = 'block';
         inputNombrePlayer.style.display = 'none';
         lore.style.display = 'none';
+
+        spanDementoresDerrotados.innerHTML = "Dementores derrotados: 0";
+        spanDementoresDerrotados.style.display = 'block';
+        spanNivel.style.display = 'block';
 
         for (let i = 0; i < NUMEROVIDAS; i++) {
             imagenConVida = document.createElement("img");
@@ -333,9 +340,6 @@ window.onload = function() {
 
 
 
-
-
-
     
 
 
@@ -380,6 +384,10 @@ window.onload = function() {
                 dementorDerrotado = true;
                 dementor.vivo = false;
                 playerPotter.dementoresDerrotados += 1;
+
+                let contenido = "Dementores derrotados: " + playerPotter.dementoresDerrotados;
+                
+                spanDementoresDerrotados.innerHTML = contenido;
 
                 console.log(playerPotter.dementoresDerrotados);
 
@@ -588,6 +596,7 @@ window.onload = function() {
                 espacio = true;
                 break;
         }
+        evt.preventDefault();
     }
 
     function desactivarMovimiento(evt) {
@@ -638,6 +647,13 @@ window.onload = function() {
      *  CÓDIGO PRINCIPAL
      */
 
+
+    // document.addEventListener('keydown', function(event) {
+    //     // Evitar scroll con flechas
+    //     if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+          
+    //     }
+    // });
     
 
     botonNuevaPartida = document.getElementById("nuevaPartida");
