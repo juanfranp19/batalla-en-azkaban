@@ -1,22 +1,22 @@
 window.onload = function() {
 
     let canvas, ctx;
-    let idAnimacionCanvas, idAnimacionPlayer, idAnimacionHechizo, idIntervalDementor, idAnimacionDementor;
+    let idAnimacionCanvas, idAnimacionPlayer, idAnimacionPatronus, idIntervalDementor, idAnimacionDementor;
 
     let playerPotter;
     let xIzquierda, xDerecha, yUp, yDown, espacio;
     let posicionPlayer = 0;
     let posicionInicialPlayer;
 
-    let hechizo;
-    let xHechizo, yHechizo;
-    let posicionHechizo = 0;
-    let hechizoLanzado = false;
-    let hechizoLista = [];
+    let patronus;
+    let xPatronus, yPatronus;
+    let posicionPatronus = 0;
+    let patronusLanzado = false; //innecesario
+    let patronusLista = [];
          
     let dementor;
-    let posicionDementor = 0;
-    let posicionInicialDementor = 0;
+    let posicionDementor = 0; //innecesario
+    let posicionInicialDementor = 0; //innecesario
     let dementoresLista = [];
     let dementorDerrotado;
 
@@ -134,6 +134,8 @@ window.onload = function() {
                 (pDown < dUp)) {
 				
                 console.log("han chocado");
+
+                reproducirSonido(dementoresLista[i].audioDementorMataPlayer);
                 
                 pierdeVida = true;
                 playerPotter.vidas -= 1;
@@ -299,13 +301,10 @@ window.onload = function() {
 
             dementor = dementoresLista[i];
 
-            //if (hechizo !== undefined) calcularDementoresDerrotados();
-
             if (dementor.y >= TOPEsueloDEMENTOR) {
 
                 dementoresLista.splice(i, 1);
                 console.log("dementores: " + dementoresLista.length);
-
             }
 
             dementor.movimiento();
@@ -318,7 +317,7 @@ window.onload = function() {
 
             dementor = dementoresLista[i];   
 
-            dementor.pintar(ctx, posicionDementor);
+            dementor.pintar(ctx);
         }
     }
 
@@ -327,10 +326,7 @@ window.onload = function() {
         for (let i = 0; i < dementoresLista.length; i++) {
 
             dementor = dementoresLista[i];
-
-            posicionInicialDementor = 0;
-
-            posicionDementor = posicionInicialDementor + ((posicionDementor + 1) % 3);
+            dementor.posicion = (dementor.posicion + 1) % 3;
         }
     }
 
@@ -362,10 +358,10 @@ window.onload = function() {
 
         dementorDerrotado = false;
 
-        let hIzq = hechizo.x;
-        let hDer = hechizo.x + hechizo.tamañoXCanva;
-        let hUp = hechizo.y + hechizo.tamañoYCanva;
-        let hDown = hechizo.y;
+        let hIzq = patronus.x;
+        let hDer = patronus.x + patronus.tamañoXCanva;
+        let hUp = patronus.y + patronus.tamañoYCanva;
+        let hDown = patronus.y;
 
         let i = 0;
 
@@ -382,11 +378,12 @@ window.onload = function() {
 
                 console.log("dementor muerto");
 
+                reproducirSonido(dementoresLista[i].audioDementorMuerto);
+
                 dementoresLista.splice(i, 1);
                 console.log("dementores: " + dementoresLista.length);
 
                 dementorDerrotado = true;
-                dementor.vivo = false;
                 playerPotter.dementoresDerrotados += 1;
 
                 let contenido = "Dementores derrotados: " + playerPotter.dementoresDerrotados;
@@ -478,72 +475,72 @@ window.onload = function() {
 
 
 
-    function generarHechizo() {
+    function generarPatronus() {
 
-        if (hechizoLista.length < 1) {
+        if (patronusLista.length < 1) {
 
-            xHechizo = playerPotter.x;
-            yHechizo = playerPotter.y
+            xPatronus = playerPotter.x;
+            yPatronus = playerPotter.y
 
-            hechizo = new Hechizo(xHechizo, yHechizo);
-            hechizoLista.push(hechizo);
-            hechizo = hechizoLista[0];
+            patronus = new Patronus(xPatronus, yPatronus);
+            patronusLista.push(patronus);
+            patronus = patronusLista[0];
             
-            reproducirSonido(hechizo.audio);
+            reproducirSonido(patronus.audio);
 
-            idAnimacionHechizo = setInterval(generarAnimacionHechizo, 1000/80); // id incrementado poco a poco la velocidad
+            idAnimacionPatronus = setInterval(generarAnimacionPatronus, 1000/80); // id incrementado poco a poco la velocidad
         }
     }
 
-    function generarAnimacionHechizo() {
+    function generarAnimacionPatronus() {
 
-        actualizarValoresHechizoLista();
-        hechizo.movimiento();
-        posicionHechizo = 0; 
+        actualizarValoresPatronusLista();
+        patronus.movimiento();
+        posicionPatronus = 0; 
 
-        if (hechizo.y < 200) {
-            posicionHechizo = 1;
+        if (patronus.y < 200) {
+            posicionPatronus = 1;
 
-            if (hechizo.y < 150) {
-                posicionHechizo = 2;
+            if (patronus.y < 150) {
+                posicionPatronus = 2;
 
-                if (hechizo.y < 90) {
-                    posicionHechizo = 3;
+                if (patronus.y < 90) {
+                    posicionPatronus = 3;
                 }
             }
         }
         
-        hechizo.pintar(ctx, posicionHechizo);
-        hechizo.tamañoImagen(posicionHechizo);
+        patronus.pintar(ctx, posicionPatronus);
+        patronus.tamañoImagen(posicionPatronus);
 
         calcularDementoresDerrotados();
         
-        // (hechizoPlayer.y + hechizoPlayer.tamañoY)
-        if ( hechizoLista[0].y <= 0 || dementorDerrotado) {
+        // (patronusPlayer.y + patronusPlayer.tamañoY)
+        if ( patronusLista[0].y <= 0 || dementorDerrotado) {
 
             
 
-            hechizo.haChocado = true;
+            patronus.haChocado = true;
 
-            cerrarAnimacionHechizo();
+            cerrarAnimacionPatronus();
             
         }
     }
 
-    function actualizarValoresHechizoLista() {
+    function actualizarValoresPatronusLista() {
 
-        hechizoLista.pop();
+        patronusLista.pop();
 
-        hechizoLista.push(hechizo);
+        patronusLista.push(patronus);
     }
 
-    function cerrarAnimacionHechizo() {
+    function cerrarAnimacionPatronus() {
 
-        clearInterval(idAnimacionHechizo);
+        clearInterval(idAnimacionPatronus);
 
-        hechizoLista.pop();
+        patronusLista.pop();
 
-        console.log("cierre animacion del hechizo");
+        console.log("cierre animacion del patronus");
     }
 
 
@@ -579,7 +576,7 @@ window.onload = function() {
         if (xIzquierda) playerPotter.posicionIzquierda();
         if (xDerecha) playerPotter.posicionDerecha();
 
-        if (espacio) generarHechizo();
+        if (espacio) generarPatronus();
     }
 
     function activarMovimiento(evt) {

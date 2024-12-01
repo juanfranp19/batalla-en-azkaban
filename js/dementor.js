@@ -42,24 +42,27 @@ function Dementor() {
 
     this.velocidad = getRandomVelocidad();
 
-    this.vivo = true;
+    this.posicion = 0;
 }
 
 imagenDementor = new Image();
 imagenDementor.src = "assets/images/dementor.png";
 Dementor.prototype.imagen = imagenDementor;
 
+Dementor.prototype.audioDementorMuerto = new Audio("assets/sounds/dementor muerto.mp3");
+Dementor.prototype.audioDementorMataPlayer = new Audio("assets/sounds/dementor mata player.mp3");
+
 Dementor.prototype.animacion = [
     [8, 1], [83, 0], [166, 1], // negro
     [8, 145], [85, 143], [167, 144] // gris
 ];
 
-Dementor.prototype.pintar = function(ctx_, posicionDementor_) {
+Dementor.prototype.pintar = function(ctx_) {
 
     ctx_.drawImage(
         this.imagen,
-        this.animacion[posicionDementor_][0],
-        this.animacion[posicionDementor_][1],
+        this.animacion[this.posicion][0],
+        this.animacion[this.posicion][1],
         this.tamañoXImagen, 
         this.tamañoYImagen,
         this.x,
