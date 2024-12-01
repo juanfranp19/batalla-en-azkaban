@@ -22,6 +22,8 @@ imagenHechizo = new Image();
 imagenHechizo.src = "assets/images/hechizo.png";
 Hechizo.prototype.imagen = imagenHechizo;
 
+Hechizo.prototype.audio = new Audio("assets/sounds/hechizo.mp3");
+
 Hechizo.prototype.animacion = [
     [8, 10], [40, 10], [107, 10], [181, 10], // animación subida del hechizo
     [266, 10], [375, 10] // animación choque del hechizo

@@ -34,6 +34,10 @@ window.onload = function() {
     let imagenConVida;
     const NUMEROVIDAS = 3;
 
+    function reproducirSonido(audio_) {
+        audio_.currentTime = 0;
+        audio_.play();
+    }
 
     function start() {
     
@@ -484,6 +488,8 @@ window.onload = function() {
             hechizo = new Hechizo(xHechizo, yHechizo);
             hechizoLista.push(hechizo);
             hechizo = hechizoLista[0];
+            
+            reproducirSonido(hechizo.audio);
 
             idAnimacionHechizo = setInterval(generarAnimacionHechizo, 1000/80); // id incrementado poco a poco la velocidad
         }
@@ -492,9 +498,7 @@ window.onload = function() {
     function generarAnimacionHechizo() {
 
         actualizarValoresHechizoLista();
-
         hechizo.movimiento();
-
         posicionHechizo = 0; 
 
         if (hechizo.y < 200) {
