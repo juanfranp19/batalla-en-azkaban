@@ -36,7 +36,7 @@ header {
             padding: 40px;
             background-color: rgba(0, 0, 0, 0.3);
             border-radius: 15px;
-            color: white;
+            color: rgb(200, 200, 200);
         }
 
 
@@ -127,7 +127,7 @@ header {
 
         #info #spans span {
             background-color: rgba(0, 0, 0, 0.3);
-            color: white;
+            color: rgb(200, 200, 200);
             border-radius: 15px;
             padding: 5px 15px;
             display: none;
@@ -140,4 +140,31 @@ header {
             background-image: url(assets/images/fondoCanvas.jpg);
             display: initial;
         }
+
+    /* table */
+    .tabla {
+        display: flex;
+    }
+
+    table {
+        width: 500px;
+        height: 50px;
+        text-align: center;
+        justify-content: center;
+        border-collapse: collapse;
+        padding: 100px;
+        background-color: rgba(0, 0, 0, 0.3);
+        color: rgb(200, 200, 200);
+    }
+    table tr th {
+        background-color: #333;
+        color: #20835d;
+    }
+    table tr td, table tr th{
+        padding: 10px 100px;
+    }
+    table tr:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
 
