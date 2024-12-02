@@ -2,7 +2,7 @@
 
 let imagenPatronus;
 
-const VELOCIDADpatronus = 7; // luego la velocidad se incremente!!!!!!!!!!!!!!!!
+let velocidadPatronus = 7;
 
 function Patronus(x_, y_) {
 
@@ -15,7 +15,7 @@ function Patronus(x_, y_) {
     this.tamañoXCanva = this.tamañoXImagen / 2;
     this.tamañoYCanva = this.tamañoYImagen / 2;
 
-    this.velocidad = VELOCIDADpatronus;
+    this.velocidad = velocidadPatronus;
 }
 
 imagenPatronus = new Image();
@@ -46,7 +46,7 @@ Patronus.prototype.pintar = function(ctx_, posicionPatronus_) {
 }
 
 Patronus.prototype.movimiento = function() {
-    this. y -= VELOCIDADpatronus;
+    this. y -= this.velocidad;
 }
 
 Patronus.prototype.tamañoImagen = function(posicion) {

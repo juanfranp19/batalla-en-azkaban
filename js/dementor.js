@@ -5,7 +5,7 @@ function getRandomX() {
     return numeroRandomEjeX;
 }
 function getRandomVelocidad() {
-    const velocidad = Math.random() * (0.2 - 0.05) + 0.05;
+    const velocidad = Math.random() * (dementorVelocidadMaxima - dementorVelocidadMinima) + dementorVelocidadMinima;
     return velocidad;
 }
 // const VELOCIDADdementor = 5;
@@ -20,6 +20,9 @@ const yTAMAÑOdementorCanva = yTAMAÑOdementorImagen / 2;
 
 const TOPEsueloDEMENTOR = 400 - yTAMAÑOdementorImagen/2;
 
+
+let dementorVelocidadMinima = 0.05;
+let dementorVelocidadMaxima = 0.2;
 
 let imagenDementor;
 

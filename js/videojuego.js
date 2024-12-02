@@ -64,9 +64,21 @@ window.onload = function() {
         inputNombrePlayer.style.display = 'none';
         lore.style.display = 'none';
 
+        // se inicializan para cuando haya que iniciar una partida después de otra
         spanDementoresDerrotados.innerHTML = "Dementores derrotados: 0";
         spanDementoresDerrotados.style.display = 'block';
+        spanNivel.innerHTML = "Nivel: 1";
         spanNivel.style.display = 'block';
+
+        dementorVelocidadMinima = 0.05;
+        dementorVelocidadMaxima = 0.2;
+        NUMEROdementores = 10;
+
+        velocidadPatronus = 7;
+        xVELOCIDADplayer = 5;
+        yVELOCIDADplayer = 1;
+
+        
 
         for (let i = 0; i < NUMEROVIDAS; i++) {
             imagenConVida = document.createElement("img");
@@ -82,6 +94,14 @@ window.onload = function() {
     function end() {
         clearInterval(idAnimacionCanvas);
         clearInterval(idAnimacionPlayer);
+        clearInterval(idAnimacionPatronus);
+        clearInterval(idAnimacionDementor);
+        clearInterval(idIntervalDementor);
+
+        if (patronusLista.length > 0) {
+            patronusLista.pop();
+        }
+
         console.log("fin del juego");
 
         //let imagenConVida = 
@@ -147,13 +167,11 @@ window.onload = function() {
                 clearInterval(idIntervalDementor);
                 clearInterval(idAnimacionDementor);
 
-                dementoresLista.splice(0, dementoresLista.length);
-
                 if (playerPotter.vidas === 0) {
                     end();
                 }
 
-                
+                dementoresLista.splice(0, dementoresLista.length);
 				
 			} else i++;
 		}
@@ -289,9 +307,11 @@ window.onload = function() {
         //console.log("todo ok");
 
         if (dementoresLista.length === 0) {
+            console.log("fin animación dementores");
+
             clearInterval(idIntervalDementor);
             clearInterval(idAnimacionDementor);
-            console.log("fin animación dementores");
+            
         }
     }
 
@@ -387,8 +407,9 @@ window.onload = function() {
                 playerPotter.dementoresDerrotados += 1;
 
                 let contenido = "Dementores derrotados: " + playerPotter.dementoresDerrotados;
-                
                 spanDementoresDerrotados.innerHTML = contenido;
+
+                calcularNivel();
 
                 console.log(playerPotter.dementoresDerrotados);
 
@@ -415,7 +436,58 @@ window.onload = function() {
 
 
 
+    function calcularNivel() {
 
+        console.log(playerPotter.nivel);
+
+        switch (playerPotter.dementoresDerrotados) {
+
+            case 15:
+                playerPotter.nivel = 2;
+                NUMEROdementores += 5;
+                dementorVelocidadMinima += 0.05;
+                dementorVelocidadMaxima += 0.05;
+                velocidadPatronus -= 1;
+                break;
+            case 35:
+                playerPotter.nivel = 3;
+                NUMEROdementores += 6;
+                dementorVelocidadMinima += 0.01;
+                dementorVelocidadMaxima += 0.01;
+                velocidadPatronus -= 2;
+                xVELOCIDADplayer -= 1;
+                yVELOCIDADplayer -= 0.1;
+                break;
+            case 50:
+                playerPotter.nivel = 4;
+                NUMEROdementores += 6;
+                dementorVelocidadMinima += 0.04;
+                dementorVelocidadMaxima += 0.04;
+                xVELOCIDADplayer -= 1;
+                yVELOCIDADplayer -= 0.1;
+                break;
+            case 75:
+                playerPotter.nivel = 5;
+                NUMEROdementores += 5;
+                dementorVelocidadMinima += 0.01;
+                dementorVelocidadMaxima += 0.01;
+                xVELOCIDADplayer -= 1;
+                yVELOCIDADplayer -= 0.1;
+                break;
+            case 100:
+                playerPotter.nivel = 6;
+                NUMEROdementores += 15;
+                xVELOCIDADplayer -= 1;
+                yVELOCIDADplayer -= 0.1;
+                break;
+            default:
+                console.log("error al calcular vidas");
+                break;
+        }
+
+        spanNivel.innerHTML = "Nivel: " + playerPotter.nivel;
+
+    }
 
 
 

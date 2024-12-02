@@ -3,8 +3,8 @@
 const xINICIALplayer = 300 - 16;
 const yINICIALplayer = 300; 
 
-const xVELOCIDADplayer = 5; //modificar para cuando se incremente la dificultad
-const yVELOCIDADplayer = 1;
+let xVELOCIDADplayer = 5; //modificar para cuando se incremente la dificultad
+let yVELOCIDADplayer = 1;
 
 const xTAMAÑOplayer = 48;
 const yTAMAÑOplayer = 64;
@@ -26,10 +26,9 @@ function HarryPotter() {
     this.tamañoX = xTAMAÑOplayer;
     this.tamañoY = yTAMAÑOplayer;
 
-    this.dementoresDerrotados = 0;
-
     this.vidas = 3;
-
+    this.dementoresDerrotados = 0;
+    this.nivel = 1;
     this.vivo = true;
 }
 
