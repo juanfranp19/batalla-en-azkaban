@@ -307,10 +307,11 @@ window.onload = function() {
         //console.log("todo ok");
 
         if (dementoresLista.length === 0) {
-            console.log("fin animación dementores");
 
             clearInterval(idIntervalDementor);
             clearInterval(idAnimacionDementor);
+
+            console.log("fin animación dementores");
             
         }
     }
