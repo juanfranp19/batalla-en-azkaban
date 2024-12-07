@@ -15,6 +15,7 @@
         <script src="js/dementor.js"></script>
         <script src="js/harrypotter.js"></script>
         <script src="js/patronus.js"></script>
+        <script src="js/almacenamiento.js"></script>
 
         <script src="js/videojuego.js"></script>
     </head>
@@ -38,13 +39,16 @@
                 <input type="text" id="nombrePlayer" placeholder="Tu nombre"> &nbsp;
                 <input type="submit" id="nuevaPartida" value="NUEVA PARTIDA"> <br><br>
 
-                <p id="mensajePlayer"></p>
+                
             </div> 
 
         </header>
 
         <main>
             <div class="canvas">
+
+                <p id="mensajePlayer"></p>
+
                 <div id="vidas">
                     <!--
                     <img src="assets/images/vida.png" alt="vida">
@@ -65,7 +69,7 @@
 
             <div class="records">
                 <h2>Records</h2>
-                <div class="tabla">
+                <div id="tablaRecords">
                     <table>
                         <tr>
                             <th>Nombre</th>
