@@ -1,15 +1,41 @@
-function recuperarDatoLocal() {		
 
-    if (localStorage.getItem("records") !== undefined) {
+function recuperarDatosLocal() {		
 
-        return localStorage.getItem("records");	
+    if (localStorage.length === 0) {
+
+        console.log("no hay datos en el almacenamiento local");
+
     } else {
 
-        console.log("no hay lista");
+        localStorage.array.forEach(element, f => {
+            
+        });
     }    	
 }
 
-function almacenarDatoLocal() {
 
-    localStorage.setItem("records", /* donde se almacena*/);		
+
+function almacenarDatosLocal(datosNombre, datosDementores, datosNivel) {
+
+    if (localStorage.getItem(datosNombre)) {
+
+        let dementoresDerrotadosAnteriorPartida = JSON.parse(localStorage.getItem(datosNombre)).dementores;
+        let nivelAnteriorPartida = JSON.parse(localStorage.getItem(datosNombre)).nivel
+
+        if (dementoresDerrotadosAnteriorPartida > datosDementores) {
+            
+            datosDementores = dementoresDerrotadosAnteriorPartida;
+            datosNivel = nivelAnteriorPartida;
+        }
+    }
+
+    let datosPlayer = {
+        nombre: datosNombre,
+        dementores: datosDementores,
+        nivel: datosNivel
+    }
+
+    let datosPlayerJSON = JSON.stringify(datosPlayer);
+
+    localStorage.setItem(datosNombre, datosPlayerJSON);
 }

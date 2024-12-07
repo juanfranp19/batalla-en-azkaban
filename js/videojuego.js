@@ -20,11 +20,13 @@ window.onload = function() {
     let dementoresLista = [];
     let dementorDerrotado;
 
-    let botonNuevaPartida;
+    let botonNuevaPartida = document.getElementById("nuevaPartida");
     let inputNombrePlayer;
     let pMensajePlayer;
     let nodePMensajePlayer;
-    let lore;
+    let textoIntroductorio;
+
+    let nombreJugador;
 
     const divVidas = document.getElementById("vidas");
     const spanDementoresDerrotados = document.getElementById("dementoresDerrotados");
@@ -43,26 +45,24 @@ window.onload = function() {
     
         inputNombrePlayer = document.getElementById("nombrePlayer");
         pMensajePlayer = document.getElementById("mensajePlayer");
-        lore = document.getElementById("texto");
+        textoIntroductorio = document.getElementById("texto");
+    
+        nombreJugador = inputNombrePlayer.value;
 
-        console.log(lore);
-    
-        const NOMBREJUGADOR = inputNombrePlayer.value;
-    
+        if (!nombreJugador) nombreJugador = "jugador";
+
         botonNuevaPartida.disabled = true;
     
-        if (NOMBREJUGADOR) { 
-            nodePMensajePlayer = document.createTextNode("¡Hola, " + NOMBREJUGADOR + "!");
+        
+            
 
-        } else {
-            nodePMensajePlayer = document.createTextNode("¡Hola, jugador!");
-        }
+        nodePMensajePlayer = document.createTextNode("¡Hola, " + nombreJugador + "!");
 
         pMensajePlayer.appendChild(nodePMensajePlayer);
     
         pMensajePlayer.style.display = 'block';
         inputNombrePlayer.style.display = 'none';
-        lore.style.display = 'none';
+        textoIntroductorio.style.display = 'none';
 
         // se inicializan para cuando haya que iniciar una partida después de otra
         spanDementoresDerrotados.innerHTML = "Dementores derrotados: 0";
@@ -104,29 +104,19 @@ window.onload = function() {
 
         console.log("fin del juego");
 
-        //let imagenConVida = 
-
-        
-        
-        //console.log(imagenConVida);
-        
-        // for (let i = 0; i < NUMEROVIDAS; i++) {
-        //     // imagenConVida = document.createElement("img");
-        //     // imagenConVida.src = "assets/images/vida.png";
-        //     // imagenConVida.alt = "vida";
-
-            
-        // }
         while (divVidas.firstChild) {
             divVidas.removeChild(divVidas.firstChild);
         }
+
+
+        almacenarDatosLocal(nombreJugador, playerPotter.dementoresDerrotados, playerPotter.nivel);
 
 
         pMensajePlayer.removeChild(nodePMensajePlayer);
         botonNuevaPartida.disabled = false;
         pMensajePlayer.style.display = 'none';
         inputNombrePlayer.style.display = 'inline';
-        lore.style.display = 'block';
+        textoIntroductorio.style.display = 'block';
     }
 
 
@@ -481,9 +471,6 @@ window.onload = function() {
                 xVELOCIDADplayer -= 1;
                 yVELOCIDADplayer -= 0.1;
                 break;
-            default:
-                console.log("error al calcular vidas");
-                break;
         }
 
         spanNivel.innerHTML = "Nivel: " + playerPotter.nivel;
@@ -586,7 +573,7 @@ window.onload = function() {
         patronus.pintar(ctx, posicionPatronus);
         patronus.tamañoImagen(posicionPatronus);
 
-        calcularDementoresDerrotados();
+        if (dementoresLista.length > 0) calcularDementoresDerrotados();
         
         // (patronusPlayer.y + patronusPlayer.tamañoY)
         if ( patronusLista[0].y <= 0 || dementorDerrotado) {
@@ -730,6 +717,6 @@ window.onload = function() {
     // });
     
 
-    botonNuevaPartida = document.getElementById("nuevaPartida");
+    
     botonNuevaPartida.onclick = start;
 }
