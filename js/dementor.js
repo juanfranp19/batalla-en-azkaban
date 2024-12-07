@@ -21,12 +21,12 @@ const yTAMAÑOdementorCanva = yTAMAÑOdementorImagen / 2;
 const TOPEsueloDEMENTOR = 400 - yTAMAÑOdementorImagen/2;
 
 
-let dementorVelocidadMinima = 0.05;
-let dementorVelocidadMaxima = 0.2;
+// let dementorVelocidadMinima = 0.05;
+// let dementorVelocidadMaxima = 0.2;
 
 let imagenDementor;
 
-let NUMEROdementores = 10;
+// let NUMEROdementores = 10;
 
 
 

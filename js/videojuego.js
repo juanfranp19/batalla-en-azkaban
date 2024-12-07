@@ -9,6 +9,9 @@ window.onload = function() {
     const divVidas = document.getElementById("vidas");
     const spanDementoresDerrotados = document.getElementById("dementoresDerrotados");
     const spanNivel = document.getElementById("nivel");
+    const inputNombrePlayer = document.getElementById("nombrePlayer");
+    const pMensajePlayer = document.getElementById("mensajePlayer");
+    const textoIntroductorio = document.getElementById("texto");
 
     let canvas, ctx;
     let idAnimacionCanvas, idAnimacionPlayer, idAnimacionPatronus, idIntervalDementor, idAnimacionDementor;
@@ -27,10 +30,7 @@ window.onload = function() {
     let dementoresLista = [];
     let dementorDerrotado;
 
-    let inputNombrePlayer;
-    let pMensajePlayer;
     let nodePMensajePlayer;
-    let textoIntroductorio;
     let nombreJugador;
 
     let imagenSinVida;
@@ -44,45 +44,32 @@ window.onload = function() {
         audio_.play();
     }
 
-    function start() {
-    
-        inputNombrePlayer = document.getElementById("nombrePlayer");
-        pMensajePlayer = document.getElementById("mensajePlayer");
-        textoIntroductorio = document.getElementById("texto");
-    
-        nombreJugador = inputNombrePlayer.value;
+    function elementosHtmlParaJugar() {
 
+        // se posicionan los elementos del HTML para el juego, algunos aparecen y otros se eliminan hasta que se termina la partida
+
+        nombreJugador = inputNombrePlayer.value;
         if (!nombreJugador) nombreJugador = "jugador";
 
         botonNuevaPartida.disabled = true;
-    
-        
-            
 
         nodePMensajePlayer = document.createTextNode("¡Hola, " + nombreJugador + "!");
-
         pMensajePlayer.appendChild(nodePMensajePlayer);
     
         pMensajePlayer.style.display = 'block';
         inputNombrePlayer.style.display = 'none';
         textoIntroductorio.style.display = 'none';
-
-        // se inicializan para cuando haya que iniciar una partida después de otra
         spanDementoresDerrotados.innerHTML = "Dementores derrotados: 0";
         spanDementoresDerrotados.style.display = 'block';
         spanNivel.innerHTML = "Nivel: 1";
         spanNivel.style.display = 'block';
 
-        dementorVelocidadMinima = 0.05;
-        dementorVelocidadMaxima = 0.2;
-        NUMEROdementores = 10;
+        // elimina los corazones en caso de que se juegue otra partida después de terminar una
+        while (divVidas.firstChild) {
+            divVidas.removeChild(divVidas.firstChild);
+        }
 
-        velocidadPatronus = 7;
-        xVELOCIDADplayer = 5;
-        yVELOCIDADplayer = 1;
-
-        
-
+        // aparecen los 3 corazones de vida
         for (let i = 0; i < NUMEROVIDAS; i++) {
             imagenConVida = document.createElement("img");
             imagenConVida.src = "assets/images/vida.png";
@@ -90,32 +77,21 @@ window.onload = function() {
 
             divVidas.appendChild(imagenConVida);
         }
-    
-        cargarPartida();
     }
 
-    function end() {
-        clearInterval(idAnimacionCanvas);
-        clearInterval(idAnimacionPlayer);
-        clearInterval(idAnimacionPatronus);
-        clearInterval(idAnimacionDementor);
-        clearInterval(idIntervalDementor);
+    function inicializarVariables() {
 
-        if (patronusLista.length > 0) {
-            patronusLista.pop();
-        }
+        dementorVelocidadMinima = 0.05;
+        dementorVelocidadMaxima = 0.2;
+        NUMEROdementores = 10;
 
-        console.log("fin del juego");
+        velocidadPatronus = 7;
+        
+        xVELOCIDADplayer = 5;
+        yVELOCIDADplayer = 1;
+    }
 
-        while (divVidas.firstChild) {
-            divVidas.removeChild(divVidas.firstChild);
-        }
-
-
-        almacenarDatosLocal(nombreJugador, playerPotter.dementoresDerrotados, playerPotter.nivel);
-
-        document.removeEventListener("keydown", activarMovimiento, false);
-        document.removeEventListener("keyup", desactivarMovimiento, false);
+    function elementosHtmlParaVolverAJugar() {
 
         pMensajePlayer.removeChild(nodePMensajePlayer);
         botonNuevaPartida.disabled = false;
@@ -124,12 +100,77 @@ window.onload = function() {
         textoIntroductorio.style.display = 'block';
     }
 
+    function start() {
+        
+        elementosHtmlParaJugar();
+        inicializarVariables();
+        cargarPartida();
+    }
 
+    function cargarPartida() {
+
+        // activa el detector de pulsado de teclas
+        document.addEventListener("keydown", activarMovimiento, false);
+        document.addEventListener("keyup", desactivarMovimiento, false);
+
+        canvas = document.getElementById("myCanvas");
+        // genera el contexto 2d
+        ctx = canvas.getContext("2d");
+
+        // objeto del player
+        playerPotter = new HarryPotter();
+
+        // animación donde puedes controlar al player
+        idAnimacionCanvas = setInterval(generarCanvas, 1000/50);
+        // animación del player
+        idAnimacionPlayer = setInterval(generarAnimacionPlayer, 1000/8);
+    }
+
+
+    function generarCanvas() {
+
+        ctx.clearRect(0, 0, 600, 400);
+
+        comandos();
+        
+        playerPotter.pintar(ctx, posicionPlayer);
+
+        generarDementor();
+    }
+
+    function desactivarTodasAnimaciones() {
+        clearInterval(idAnimacionCanvas);
+        clearInterval(idAnimacionPlayer);
+        clearInterval(idAnimacionPatronus);
+        clearInterval(idAnimacionDementor);
+        clearInterval(idIntervalDementor);
+    }
+
+    function end() {
+        
+        desactivarTodasAnimaciones();
+
+        // elimina el patronus de su lista
+        if (patronusLista.length > 0) {
+            patronusLista.pop();
+        }
+
+        console.log("fin del juego");
+
+        almacenarDatosLocal(nombreJugador, playerPotter.dementoresDerrotados, playerPotter.nivel);
+
+        // se desactivan para que el usuario pueda usar las funciones del taclado fuera del canvas (flechas para el scroll o poder escribir por el teclado)
+        document.removeEventListener("keydown", activarMovimiento, false);
+        document.removeEventListener("keyup", desactivarMovimiento, false);
+
+        elementosHtmlParaVolverAJugar();
+    }
 
     function calcularVidaPlayer() {
         
         let pierdeVida = false;
 
+        // posiciones de colisión del player
         let pIzq = playerPotter.x;
         let pDer = playerPotter.x + playerPotter.tamañoX;
         let pUp = playerPotter.y + playerPotter.tamañoY;
@@ -137,12 +178,14 @@ window.onload = function() {
 		
 		let i = 0;
 
-		do {		
+		do {
+            // posiciones de colisión del dementor	
 			let dIzq  = Math.round(dementoresLista[i].x,0);
 			let dDer  = Math.round((dementoresLista[i].x + dementoresLista[i].tamañoXCanva),0);
 			let dUp = Math.round((dementoresLista[i].y + dementoresLista[i].tamañoYCanva),0);
             let dDown = Math.round(dementoresLista[i].y,0);
 
+            // puntos en los que chocan
 			if ((pDer > dIzq) && 
                 (pIzq < dDer) && 
                 (pUp > dDown) && 
@@ -159,6 +202,7 @@ window.onload = function() {
 
                 console.log(playerPotter.vidas);
 
+                // se detinenen las animaciones del dementor, movimiento y animación
                 clearInterval(idIntervalDementor);
                 clearInterval(idAnimacionDementor);
 
@@ -166,6 +210,7 @@ window.onload = function() {
                     end();
                 }
 
+                // elimina a todos los dementores
                 dementoresLista.splice(0, dementoresLista.length);
 				
 			} else i++;
@@ -176,100 +221,27 @@ window.onload = function() {
 
     function vidasCorazonesHtml() {
 
-        //divVidas = document.getElementById("vidas");
-    
+        // crea el imagen sin vida
         imagenSinVida = document.createElement("img");
         imagenSinVida.src = "assets/images/sinvida.png";
         imagenSinVida.alt = "-1 vida";
     
-        //console.log(imagenSinVida);
-        //console.log(divVidas[2]);
-
+        // calcula con el número de vidas cuántos corazones grises deben haber
         for (let i = 0; i < NUMEROVIDAS; i++) {
 
             if (playerPotter.vidas === i) {
                 divVidas.replaceChild(imagenSinVida, divVidas.getElementsByTagName("img")[i]);
             }
         }
-    
-        /*
-        if (playerPotter.vidas === 2) {
-            divVidas.replaceChild(imagenSinVida, divVidas.getElementsByTagName("img")[2]);
-        }
-    
-        if (playerPotter.vidas === 1) {
-            divVidas.replaceChild(imagenSinVida, divVidas.getElementsByTagName("img")[1]);
-        }
-    
-        if (playerPotter.vidas === 0) {
-            divVidas.replaceChild(imagenSinVida, divVidas.getElementsByTagName("img")[0]);
-        }
-        */
     }
     
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-    function generarCanvas() {
-
-        ctx.clearRect(0, 0, 600, 400);
-
-        comandos();
-        
-        playerPotter.pintar(ctx, posicionPlayer);
-
-        generarDementor();
-
-        
-        
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     function generarDementor() {
-
-        //console.log(dementoresLista.length);
 
         if (dementoresLista.length === 0) {
 
             crearDementores();
 
+            // intervalos de movimiento y animación del dementor
             idIntervalDementor = setInterval(intervalDementor, 1000/300);
             idAnimacionDementor = setInterval(generarAnimacionDementor, 1000/5);
         }
@@ -278,7 +250,6 @@ window.onload = function() {
     function crearDementores() {
 
         // crea los dementores y los añade a la lista de los dementores vivos
-
         for (let i = 0; i < NUMEROdementores; i++) {
 
             let dementor = new Dementor();
@@ -289,17 +260,11 @@ window.onload = function() {
     function intervalDementor() {
 
         comprobarDementores();
-
         movimientoDementor();
-
         dibujarDementores();
-
-        
     }
 
     function comprobarDementores() {
-
-        //console.log("todo ok");
 
         if (dementoresLista.length === 0) {
 
@@ -307,7 +272,6 @@ window.onload = function() {
             clearInterval(idAnimacionDementor);
 
             console.log("fin animación dementores");
-            
         }
     }
 
@@ -319,6 +283,7 @@ window.onload = function() {
 
             if (dementor.y >= TOPEsueloDEMENTOR) {
 
+                // elimina al dementor que ha tocado el suelo
                 dementoresLista.splice(i, 1);
                 console.log("dementores: " + dementoresLista.length);
             }
@@ -332,7 +297,6 @@ window.onload = function() {
         for (let i = 0; i < dementoresLista.length; i++) {
 
             dementor = dementoresLista[i];   
-
             dementor.pintar(ctx);
         }
     }
@@ -342,38 +306,17 @@ window.onload = function() {
         for (let i = 0; i < dementoresLista.length; i++) {
 
             dementor = dementoresLista[i];
+
+            // va rotando entre 3 sprites que usa el dementor
             dementor.posicion = (dementor.posicion + 1) % 3;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
 
     function calcularDementoresDerrotados() {
 
         dementorDerrotado = false;
 
+        // posiciones de colisión del patronus
         let hIzq = patronus.x;
         let hDer = patronus.x + patronus.tamañoXCanva;
         let hUp = patronus.y + patronus.tamañoYCanva;
@@ -382,11 +325,13 @@ window.onload = function() {
         let i = 0;
 
         do {
+            // posiciones de colisión del dementor
             let dIzq  = Math.round(dementoresLista[i].x,0);
 			let dDer  = Math.round((dementoresLista[i].x + dementoresLista[i].tamañoXCanva),0);
 			let dUp = Math.round((dementoresLista[i].y + dementoresLista[i].tamañoYCanva),0);
             let dDown = Math.round(dementoresLista[i].y,0);
 
+            // puntos en los que chocan
             if ((hDer > dIzq) &&
                 (hIzq < dDer) &&
                 (hUp > dDown) &&
@@ -396,18 +341,20 @@ window.onload = function() {
 
                 reproducirSonido(dementoresLista[i].audioDementorMuerto);
 
+                // elimina al dementor que se ha matado
                 dementoresLista.splice(i, 1);
                 console.log("dementores: " + dementoresLista.length);
 
                 dementorDerrotado = true;
                 playerPotter.dementoresDerrotados += 1;
 
+                // actualiza el contenido del HTML
                 let contenido = "Dementores derrotados: " + playerPotter.dementoresDerrotados;
                 spanDementoresDerrotados.innerHTML = contenido;
 
                 calcularNivel();
 
-                console.log(playerPotter.dementoresDerrotados);
+                //console.log(playerPotter.dementoresDerrotados);
 
             } else i++;
 
@@ -415,26 +362,11 @@ window.onload = function() {
         while ((i < dementoresLista.length) &&(!dementorDerrotado));
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     function calcularNivel() {
 
-        console.log(playerPotter.nivel);
+        //console.log("nivel: " + playerPotter.nivel);
+
+        // dependiendo del número de dementores derrotados, se irán variando las siguientes variables
 
         switch (playerPotter.dementoresDerrotados) {
 
@@ -481,40 +413,18 @@ window.onload = function() {
         spanNivel.innerHTML = "Nivel: " + playerPotter.nivel;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     function generarAnimacionPlayer() {
 
         posicionInicialPlayer = 0;
 
+        // dependiendo de qué acción haga el player, la posicion en el sprite cambia
         if (yUp) posicionInicialPlayer = 0;
         if (yDown) posicionInicialPlayer = 2;
         if (xIzquierda) posicionInicialPlayer = 4;
         if (xDerecha) posicionInicialPlayer = 6;
 
+        // cada acción tiene dos sprite, por lo que una vez sabido el primero de esa acción, 
+        // a rotando del primero al segundo, empezando a contar desde la posición inicial
         posicionPlayer = posicionInicialPlayer + ((posicionPlayer + 1) % 2);
 
         if (!yUp && !yDown && !xIzquierda && !xDerecha) posicionPlayer = 0;
@@ -526,33 +436,22 @@ window.onload = function() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     function generarPatronus() {
 
         if (patronusLista.length < 1) {
 
+            // para que salga el patronus desde mismo está el player
             xPatronus = playerPotter.x;
             yPatronus = playerPotter.y
 
             patronus = new Patronus(xPatronus, yPatronus);
             patronusLista.push(patronus);
+            // patronus solo habrá uno, así su identificación es el primer index de la lista de patronus
             patronus = patronusLista[0];
             
             reproducirSonido(patronus.audio);
 
-            idAnimacionPatronus = setInterval(generarAnimacionPatronus, 1000/80); // id incrementado poco a poco la velocidad
+            idAnimacionPatronus = setInterval(generarAnimacionPatronus, 1000/80);
         }
     }
 
@@ -562,6 +461,7 @@ window.onload = function() {
         patronus.movimiento();
         posicionPatronus = 0; 
 
+        // a medida que avanza hacia arriba, la posicion de su sprite cambia
         if (patronus.y < 200) {
             posicionPatronus = 1;
 
@@ -582,57 +482,28 @@ window.onload = function() {
         // (patronusPlayer.y + patronusPlayer.tamañoY)
         if ( patronusLista[0].y <= 0 || dementorDerrotado) {
 
-            
-
             patronus.haChocado = true;
 
             cerrarAnimacionPatronus();
-            
         }
     }
 
     function actualizarValoresPatronusLista() {
 
+        // solo puede haber un patronus por lo que a la hora de actualizar su lista,
+        // se elimina el único que tiene y se le añade otro
         patronusLista.pop();
-
         patronusLista.push(patronus);
     }
 
     function cerrarAnimacionPatronus() {
 
         clearInterval(idAnimacionPatronus);
-
         patronusLista.pop();
-
         console.log("cierre animacion del patronus");
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-    /**
-     *  TECLAS
-     */
-
-
+    // teclas
     function comandos() {
 
         if (yUp) playerPotter.posicionUp();
@@ -645,19 +516,19 @@ window.onload = function() {
 
     function activarMovimiento(evt) {
         switch (evt.keyCode) {
-            case 38:
+            case 38: // tecla flecha arriba
                 yUp = true;
                 break;
-            case 40:
+            case 40: // tecla flecha abajo
                 yDown = true;
                 break;
-            case 37:
+            case 37: // tecla flecha izquierda
                 xIzquierda = true;
                 break;
-            case 39:
+            case 39: //tecla felcha derecha
                 xDerecha = true;
                 break;
-            case 32: // tecla espacio
+            case 32: //tecla espacio
                 espacio = true;
                 break;
         }
@@ -666,44 +537,23 @@ window.onload = function() {
 
     function desactivarMovimiento(evt) {
         switch (evt.keyCode) {
-            case 38:
+            case 38: // tecla flecha arriba
                 yUp = false;
                 break;
-            case 40:
+            case 40: // tecla flecha abajo
                 yDown = false;
                 break;
-            case 37:
+            case 37: // tecla flecha izquierda
                 xIzquierda = false;
                 break;
-            case 39:
+            case 39: //tecla felcha derecha
                 xDerecha = false;
                 break;
-            case 32:
+            case 32: //tecla espacio
                 espacio = false;
                 break;
         }
     }
-
-
-
-
-
-    function cargarPartida() {
-
-        document.addEventListener("keydown", activarMovimiento, false);
-        document.addEventListener("keyup", desactivarMovimiento, false);
-
-        canvas = document.getElementById("myCanvas");
-        ctx = canvas.getContext("2d");
-
-        playerPotter = new HarryPotter();
-
-        idAnimacionCanvas = setInterval(generarCanvas, 1000/50);
-        idAnimacionPlayer = setInterval(generarAnimacionPlayer, 1000/8);
-    }
-
-
-
 
     /**
      *  CÓDIGO PRINCIPAL

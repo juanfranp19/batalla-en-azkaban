@@ -3,8 +3,8 @@
 const xINICIALplayer = 300 - 16;
 const yINICIALplayer = 300; 
 
-let xVELOCIDADplayer = 5; //modificar para cuando se incremente la dificultad
-let yVELOCIDADplayer = 1;
+// let xVELOCIDADplayer = 5;
+// let yVELOCIDADplayer = 1;
 
 const xTAMAÑOplayer = 48;
 const yTAMAÑOplayer = 64;

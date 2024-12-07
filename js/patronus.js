@@ -2,7 +2,7 @@
 
 let imagenPatronus;
 
-let velocidadPatronus = 7;
+// let velocidadPatronus = 7;
 
 function Patronus(x_, y_) {
 
@@ -51,6 +51,8 @@ Patronus.prototype.movimiento = function() {
 
 Patronus.prototype.tamañoImagen = function(posicion) {
 
+    // como cada imagen del sprite es de distinto tamaño, dependiendo del que sea, 
+    // se le asigna un tamaño para la hora de dibujarlo en el canva
     switch (posicion) {
         case 0:
             this.tamañoXImagen = 28;
