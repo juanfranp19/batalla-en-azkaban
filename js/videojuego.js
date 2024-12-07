@@ -1,6 +1,14 @@
 window.onload = function() {
 
-    
+    /**
+     *  CONSTANTES Y VARIABLES
+     */
+    const NUMEROVIDAS = 3;
+
+    const botonNuevaPartida = document.getElementById("nuevaPartida");
+    const divVidas = document.getElementById("vidas");
+    const spanDementoresDerrotados = document.getElementById("dementoresDerrotados");
+    const spanNivel = document.getElementById("nivel");
 
     let canvas, ctx;
     let idAnimacionCanvas, idAnimacionPlayer, idAnimacionPatronus, idIntervalDementor, idAnimacionDementor;
@@ -13,32 +21,24 @@ window.onload = function() {
     let patronus;
     let xPatronus, yPatronus;
     let posicionPatronus = 0;
-    let patronusLanzado = false; //innecesario
     let patronusLista = [];
          
     let dementor;
-    let posicionDementor = 0; //innecesario
-    let posicionInicialDementor = 0; //innecesario
     let dementoresLista = [];
     let dementorDerrotado;
 
-    let botonNuevaPartida = document.getElementById("nuevaPartida");
     let inputNombrePlayer;
     let pMensajePlayer;
     let nodePMensajePlayer;
     let textoIntroductorio;
-
     let nombreJugador;
-
-    const divVidas = document.getElementById("vidas");
-    const spanDementoresDerrotados = document.getElementById("dementoresDerrotados");
-    const spanNivel = document.getElementById("nivel");
-    
 
     let imagenSinVida;
     let imagenConVida;
-    const NUMEROVIDAS = 3;
 
+    /**
+     *  FUNCIONES
+     */
     function reproducirSonido(audio_) {
         audio_.currentTime = 0;
         audio_.play();
@@ -51,8 +51,6 @@ window.onload = function() {
         textoIntroductorio = document.getElementById("texto");
     
         nombreJugador = inputNombrePlayer.value;
-
-        
 
         if (!nombreJugador) nombreJugador = "jugador";
 
@@ -481,7 +479,6 @@ window.onload = function() {
         }
 
         spanNivel.innerHTML = "Nivel: " + playerPotter.nivel;
-
     }
 
 
@@ -689,9 +686,6 @@ window.onload = function() {
 
 
 
-    /**
-     * CANVAS
-     */
 
 
     function cargarPartida() {
@@ -714,15 +708,6 @@ window.onload = function() {
     /**
      *  CÓDIGO PRINCIPAL
      */
-
-
-    // document.addEventListener('keydown', function(event) {
-    //     // Evitar scroll con flechas
-    //     if (event.key === 'ArrowUp' || event.key === 'ArrowDown' || event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-          
-    //     }
-    // });
-    
     recuperarDatosLocal();
     
     botonNuevaPartida.onclick = start;
