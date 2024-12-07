@@ -1,5 +1,7 @@
 window.onload = function() {
 
+    
+
     let canvas, ctx;
     let idAnimacionCanvas, idAnimacionPlayer, idAnimacionPatronus, idIntervalDementor, idAnimacionDementor;
 
@@ -31,6 +33,7 @@ window.onload = function() {
     const divVidas = document.getElementById("vidas");
     const spanDementoresDerrotados = document.getElementById("dementoresDerrotados");
     const spanNivel = document.getElementById("nivel");
+    
 
     let imagenSinVida;
     let imagenConVida;
@@ -48,6 +51,8 @@ window.onload = function() {
         textoIntroductorio = document.getElementById("texto");
     
         nombreJugador = inputNombrePlayer.value;
+
+        
 
         if (!nombreJugador) nombreJugador = "jugador";
 
@@ -617,7 +622,7 @@ window.onload = function() {
 
 
 
-
+    
 
 
 
@@ -718,7 +723,7 @@ window.onload = function() {
     //     }
     // });
     
-
+    recuperarDatosLocal();
     
     botonNuevaPartida.onclick = start;
 }

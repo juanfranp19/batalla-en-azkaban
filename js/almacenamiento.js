@@ -1,18 +1,39 @@
 
+let tablaRecords;
+
+let mismoNombre;
+let datosRecordsLocalStorage;
+let datosPlayer;
+
+let tr, tdNombre, tdDementores, tdNivel;
+
 function recuperarDatosLocal() {
     
-    let tablaRecords = document.getElementById(tablaRecords).getElementsByTagName
+    tablaRecords = document.getElementById("tablaRecords").getElementsByTagName("table")[0].getElementsByTagName("tbody")[0];
 
-    if (localStorage.length === 0) {
+    datosRecordsLocalStorage = JSON.parse(localStorage.getItem("datosRecords"));
 
-        console.log("no hay datos en el almacenamiento local");
+    datosRecordsLocalStorage.forEach(dato => {
 
-    } else {
+        tr = document.createElement("tr");
 
-        localStorage.array.forEach(element, f => {
-            
-        });
-    }    	
+        tdNombre = document.createElement("td");
+        tdNombre.textContent = dato.nombre;
+
+        tdDementores = document.createElement("td");
+        tdDementores.textContent = dato.dementores;
+
+        tdNivel = document.createElement("td");
+        tdNivel.textContent = dato.nivel;
+
+        tr.appendChild(tdNombre);
+        tr.appendChild(tdDementores);
+        tr.appendChild(tdNivel);
+
+        tablaRecords.appendChild(tr);
+    });
+
+    console.log("datos del localStorage cargados");
 }
 
 
@@ -39,11 +60,13 @@ function recuperarDatosLocal() {
 
 function almacenarDatosLocal(datosNombre, datosDementores, datosNivel) {
 
-    let mismoNombre = false;
+    // variable para detectar si en el localStorage hay datos del mismo player
+    mismoNombre = false;
 
+    
     if (localStorage.getItem("datosRecords")) {
 
-        let datosRecordsLocalStorage = JSON.parse(localStorage.getItem("datosRecords"));
+        datosRecordsLocalStorage = JSON.parse(localStorage.getItem("datosRecords"));
 
         datosRecordsLocalStorage.forEach(dato => {
 
@@ -85,7 +108,7 @@ function almacenarDatosLocal(datosNombre, datosDementores, datosNivel) {
 
     } else {
 
-        let datosPlayer = [{
+        datosPlayer = [{
             nombre: datosNombre,
             dementores: datosDementores,
             nivel: datosNivel
