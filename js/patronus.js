@@ -1,8 +1,4 @@
-// Clase Patronus
-
 let imagenPatronus;
-
-// let velocidadPatronus = 7;
 
 function Patronus(x_, y_) {
 
@@ -25,9 +21,7 @@ Patronus.prototype.imagen = imagenPatronus;
 Patronus.prototype.audio = new Audio("assets/sounds/patronus.mp3");
 
 Patronus.prototype.animacion = [
-    [8, 10], [40, 10], [107, 10], [181, 10], // animación subida del patronus
-    [266, 10], [375, 10] // animación choque del patronus
-    // eliminalo que no va a funcionar
+    [8, 10], [40, 10], [107, 10], [181, 10]
 ];
 
 Patronus.prototype.pintar = function(ctx_, posicionPatronus_) {
@@ -52,7 +46,7 @@ Patronus.prototype.movimiento = function() {
 Patronus.prototype.tamañoImagen = function(posicion) {
 
     // como cada imagen del sprite es de distinto tamaño, dependiendo del que sea, 
-    // se le asigna un tamaño para la hora de dibujarlo en el canva
+    // se le asigna un tamaño, y para la hora de dibujarlo en el canva, se divide entre 2
     switch (posicion) {
         case 0:
             this.tamañoXImagen = 28;

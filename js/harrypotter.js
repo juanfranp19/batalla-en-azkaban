@@ -1,10 +1,5 @@
-// Clase HarryPotter
-
 const xINICIALplayer = 300 - 16;
 const yINICIALplayer = 300; 
-
-// let xVELOCIDADplayer = 5;
-// let yVELOCIDADplayer = 1;
 
 const xTAMAÑOplayer = 48;
 const yTAMAÑOplayer = 64;
@@ -57,6 +52,8 @@ HarryPotter.prototype.pintar = function(ctx_, posicionPlayer_) {
         this.tamañoY
     );
 }
+
+// las siguientes funciones hacen que el player se mueva, y que no supere sus límines en el canvas
 
 HarryPotter.prototype.posicionIzquierda = function() {
 

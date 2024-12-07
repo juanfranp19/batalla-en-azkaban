@@ -1,5 +1,3 @@
-// Clase Dementor
-
 function getRandomX() {
     const numeroRandomEjeX = Math.random() * (600 - xTAMAÑOdementorImagen);
     return numeroRandomEjeX;
@@ -8,9 +6,6 @@ function getRandomVelocidad() {
     const velocidad = Math.random() * (dementorVelocidadMaxima - dementorVelocidadMinima) + dementorVelocidadMinima;
     return velocidad;
 }
-// const VELOCIDADdementor = 5;
-
-
 
 const xTAMAÑOdementorImagen = 74;
 const yTAMAÑOdementorImagen = 134;
@@ -20,17 +15,7 @@ const yTAMAÑOdementorCanva = yTAMAÑOdementorImagen / 2;
 
 const TOPEsueloDEMENTOR = 400 - yTAMAÑOdementorImagen/2;
 
-
-// let dementorVelocidadMinima = 0.05;
-// let dementorVelocidadMaxima = 0.2;
-
 let imagenDementor;
-
-// let NUMEROdementores = 10;
-
-
-
-
 
 function Dementor() {
 
@@ -56,8 +41,7 @@ Dementor.prototype.audioDementorMuerto = new Audio("assets/sounds/dementor muert
 Dementor.prototype.audioDementorMataPlayer = new Audio("assets/sounds/dementor mata player.mp3");
 
 Dementor.prototype.animacion = [
-    [8, 1], [83, 0], [166, 1], // negro
-    [8, 145], [85, 143], [167, 144] // gris
+    [8, 1], [83, 0], [166, 1]
 ];
 
 Dementor.prototype.pintar = function(ctx_) {
