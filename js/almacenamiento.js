@@ -1,4 +1,3 @@
-
 let tablaRecords;
 
 let mismoNombre;
@@ -8,62 +7,42 @@ let datosPlayer;
 let tr, tdNombre, tdDementores, tdNivel;
 
 function recuperarDatosLocal() {
-    
-    tablaRecords = document.getElementById("tablaRecords").getElementsByTagName("table")[0].getElementsByTagName("tbody")[0];
 
-    datosRecordsLocalStorage = JSON.parse(localStorage.getItem("datosRecords"));
+    if (localStorage.getItem("datosRecords")) {
 
-    datosRecordsLocalStorage.forEach(dato => {
+        tablaRecords = document.getElementById("tablaRecords").getElementsByTagName("table")[0].getElementsByTagName("tbody")[0];
 
-        tr = document.createElement("tr");
+        datosRecordsLocalStorage = JSON.parse(localStorage.getItem("datosRecords"));
 
-        tdNombre = document.createElement("td");
-        tdNombre.textContent = dato.nombre;
+        datosRecordsLocalStorage.forEach(dato => {
 
-        tdDementores = document.createElement("td");
-        tdDementores.textContent = dato.dementores;
+            tr = document.createElement("tr");
 
-        tdNivel = document.createElement("td");
-        tdNivel.textContent = dato.nivel;
+            tdNombre = document.createElement("td");
+            tdNombre.textContent = dato.nombre;
 
-        tr.appendChild(tdNombre);
-        tr.appendChild(tdDementores);
-        tr.appendChild(tdNivel);
+            tdDementores = document.createElement("td");
+            tdDementores.textContent = dato.dementores;
 
-        tablaRecords.appendChild(tr);
-    });
+            tdNivel = document.createElement("td");
+            tdNivel.textContent = dato.nivel;
 
-    console.log("datos del localStorage cargados");
+            tr.appendChild(tdNombre);
+            tr.appendChild(tdDementores);
+            tr.appendChild(tdNivel);
+
+            tablaRecords.appendChild(tr);
+        });
+
+        console.log("datos del localStorage cargados");
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function almacenarDatosLocal(datosNombre, datosDementores, datosNivel) {
 
     // variable para detectar si en el localStorage hay datos del mismo player
     mismoNombre = false;
 
-    
     if (localStorage.getItem("datosRecords")) {
 
         datosRecordsLocalStorage = JSON.parse(localStorage.getItem("datosRecords"));
