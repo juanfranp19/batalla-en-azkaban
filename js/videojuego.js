@@ -111,6 +111,8 @@ window.onload = function() {
 
         almacenarDatosLocal(nombreJugador, playerPotter.dementoresDerrotados, playerPotter.nivel);
 
+        document.removeEventListener("keydown", activarMovimiento, false);
+        document.removeEventListener("keyup", desactivarMovimiento, false);
 
         pMensajePlayer.removeChild(nodePMensajePlayer);
         botonNuevaPartida.disabled = false;
