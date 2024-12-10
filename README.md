@@ -1,3 +1,5 @@
+![Batalla en Azkaban](assets/images/batallaEnAzkaban.png)
+
 # Batalla en Azkaban
 
 ### Videojuego hecho en JavaScript
